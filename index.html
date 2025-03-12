@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Theatre Self-Serve</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cart Feature -->
+    <div class="cart-icon" onclick="toggleCart()">
+        🛒
+        <div class="cart-badge">0</div>
+    </div>
+    
+    <div class="cart-panel">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <div class="cart-close" onclick="toggleCart()">✕</div>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>$0.00</span>
+            </div>
+            <a href="order-summary.html" class="cart-checkout">Checkout</a>
+        </div>
+    </div>
+
+    <!-- Start Screen -->
+    <div id="startScreen" class="screen active">
+        <div class="header">
+            <div class="logo-space">THEATRE NAME & LOGO</div>
+        </div>
+        
+        <h1>SELF-SERVE</h1>
+        
+        <a href="select-options.html" style="text-decoration: none; color: inherit;">
+            <div class="start-circle">
+                <div class="start-text">START</div>
+                <div class="touch-icon">👆</div>
+            </div>
+        </a>
+        
+        <div class="payment-options">
+            <div class="payment-option">Mastercard</div>
+            <div class="payment-option">VISA</div>
+            <div class="payment-option">ApplePay</div>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

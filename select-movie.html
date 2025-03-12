@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Theatre Self-Serve - Select Movie</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cart Feature -->
+    <div class="cart-icon" onclick="toggleCart()">
+        🛒
+        <div class="cart-badge">0</div>
+    </div>
+    
+    <div class="cart-panel">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <div class="cart-close" onclick="toggleCart()">✕</div>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>$0.00</span>
+            </div>
+            <a href="order-summary.html" class="cart-checkout">Checkout</a>
+        </div>
+    </div>
+
+    <!-- Select Movie Screen -->
+    <div class="screen">
+        <div class="header">
+            <div class="logo-space">THEATRE NAME & LOGO</div>
+        </div>
+        
+        <h2>SELECT MOVIE</h2>
+        
+        <div class="movie-filter">
+            <div class="date-selection">
+                <div>TODAY</div>
+                <div class="change-date">CHANGE DATE</div>
+            </div>
+            <div class="filter-options">
+                <div>FILTER</div>
+                <div class="filter-option">♿</div>
+                <div class="filter-option">DV</div>
+                <div class="filter-option">3D</div>
+                <div class="filter-option">G</div>
+                <div class="filter-option">PG</div>
+                <div class="filter-option">R</div>
+                <div class="filter-option">CC</div>
+            </div>
+        </div>
+        
+        <div class="movies-grid">
+            <a href="movie-details.html" class="movie-item">
+                <div class="movie-poster">MOVIE PICTURE</div>
+                <div class="movie-title">TITLE</div>
+                <div class="movie-showtime">Next Showing: XX:XX</div>
+            </a>
+            <a href="movie-details.html" class="movie-item">
+                <div class="movie-poster">MOVIE PICTURE</div>
+                <div class="movie-title">TITLE</div>
+                <div class="movie-showtime">Next Showing: XX:XX</div>
+            </a>
+            <a href="movie-details.html" class="movie-item">
+                <div class="movie-poster">MOVIE PICTURE</div>
+                <div class="movie-title">TITLE</div>
+                <div class="movie-showtime">Next Showing: XX:XX</div>
+            </a>
+            <a href="movie-details.html" class="movie-item">
+                <div class="movie-poster">MOVIE PICTURE</div>
+                <div class="movie-title">TITLE</div>
+                <div class="movie-showtime">Next Showing: XX:XX</div>
+            </a>
+            <a href="movie-details.html" class="movie-item">
+                <div class="movie-poster">MOVIE PICTURE</div>
+                <div class="movie-title">TITLE</div>
+                <div class="movie-showtime">Next Showing: XX:XX</div>
+            </a>
+            <a href="movie-details.html" class="movie-item">
+                <div class="movie-poster">MOVIE PICTURE</div>
+                <div class="movie-title">TITLE</div>
+                <div class="movie-showtime">Next Showing: XX:XX</div>
+            </a>
+            <a href="movie-details.html" class="movie-item">
+                <div class="movie-poster">MOVIE PICTURE</div>
+                <div class="movie-title">TITLE</div>
+                <div class="movie-showtime">Next Showing: XX:XX</div>
+            </a>
+            <a href="movie-details.html" class="movie-item">
+                <div class="movie-poster">MOVIE PICTURE</div>
+                <div class="movie-title">TITLE</div>
+                <div class="movie-showtime">Next Showing: XX:XX</div>
+            </a>
+            <a href="movie-details.html" class="movie-item">
+                <div class="movie-poster">MOVIE PICTURE</div>
+                <div class="movie-title">TITLE</div>
+                <div class="movie-showtime">Next Showing: XX:XX</div>
+            </a>
+            <a href="movie-details.html" class="movie-item">
+                <div class="movie-poster">MOVIE PICTURE</div>
+                <div class="movie-title">TITLE</div>
+                <div class="movie-showtime">Next Showing: XX:XX</div>
+            </a>
+        </div>
+        
+        <div class="button-row">
+            <a href="index.html"><button class="btn-cancel">CANCEL</button></a>
+            <a href="select-options.html"><button class="btn-back">BACK</button></a>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

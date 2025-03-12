@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Theatre Self-Serve - Refund</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cart Feature -->
+    <div class="cart-icon" onclick="toggleCart()">
+        🛒
+        <div class="cart-badge">0</div>
+    </div>
+    
+    <div class="cart-panel">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <div class="cart-close" onclick="toggleCart()">✕</div>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>$0.00</span>
+            </div>
+            <a href="order-summary.html" class="cart-checkout">Checkout</a>
+        </div>
+    </div>
+
+    <!-- Refund Screen -->
+    <div class="screen">
+        <div class="header">
+            <div class="logo-space">THEATRE NAME & LOGO</div>
+        </div>
+        
+        <h2>REFUND</h2>
+        
+        <div class="refund-form">
+            <div class="payment-field">
+                <label>BOOKING ID:</label>
+                <input type="text">
+            </div>
+            
+            <div class="refund-policy">
+                - refunds processed up to X minutes prior to showtime. Ticket will be void.
+                - Funds will appear back in the account it was purchased within X days.
+            </div>
+            
+            <div class="refund-checkbox">
+                <input type="checkbox" checked>
+                <label>Are you sure you wish to cancel this booking?</label>
+            </div>
+            
+            <a href="index.html"><button class="refund-btn">REFUND</button></a>
+        </div>
+        
+        <div class="button-row">
+            <a href="index.html"><button class="btn-cancel">CANCEL</button></a>
+            <a href="select-options.html"><button class="btn-back">BACK</button></a>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

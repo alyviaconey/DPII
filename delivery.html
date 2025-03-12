@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Theatre Self-Serve - Ticket Delivery</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cart Feature -->
+    <div class="cart-icon" onclick="toggleCart()">
+        🛒
+        <div class="cart-badge">0</div>
+    </div>
+    
+    <div class="cart-panel">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <div class="cart-close" onclick="toggleCart()">✕</div>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>$0.00</span>
+            </div>
+            <a href="order-summary.html" class="cart-checkout">Checkout</a>
+        </div>
+    </div>
+
+    <!-- Ticket Delivery Screen -->
+    <div class="screen">
+        <div class="header">
+            <div class="logo-space">THEATRE NAME & LOGO</div>
+        </div>
+        
+        <h2>Send Tickets Via...</h2>
+        
+        <div class="delivery-options">
+            <div class="delivery-option">
+                <input type="checkbox" class="delivery-checkbox" checked>
+                <span>SMS</span>
+                <input type="text" class="delivery-input" value="(123) 456-7890">
+                <button class="delivery-confirm">OK</button>
+            </div>
+            
+            <div class="delivery-option">
+                <input type="checkbox" class="delivery-checkbox">
+                <span>Email</span>
+                <input type="text" class="delivery-input" value="abc@gmail.com">
+                <button class="delivery-confirm">OK</button>
+            </div>
+            
+            <div class="download-option">
+                <div class="download-icon">⬇️</div>
+                <span>Download PDF (only enabled on mobile order)</span>
+            </div>
+        </div>
+        
+        <a href="payment-method.html"><button class="confirm-btn">Proceed to Checkout</button></a>
+        
+        <div class="button-row">
+            <a href="index.html"><button class="btn-cancel">CANCEL</button></a>
+            <a href="order-summary.html"><button class="btn-back">BACK</button></a>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

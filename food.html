@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Theatre Self-Serve - Food</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cart Feature -->
+    <div class="cart-icon" onclick="toggleCart()">
+        🛒
+        <div class="cart-badge">0</div>
+    </div>
+    
+    <div class="cart-panel">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <div class="cart-close" onclick="toggleCart()">✕</div>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>$0.00</span>
+            </div>
+            <a href="order-summary.html" class="cart-checkout">Checkout</a>
+        </div>
+    </div>
+
+    <!-- Food Screen -->
+    <div class="screen">
+        <div class="header">
+            <div class="logo-space">THEATRE NAME & LOGO</div>
+        </div>
+        
+        <div class="food-grid">
+            <div class="food-item">
+                <div class="food-price">$XX.XX</div>
+                <div class="food-image">
+                    <img src="https://via.placeholder.com/80" alt="Popcorn and Soda">
+                </div>
+                <div class="add-to-cart" onclick="addToCart('Popcorn & Soda Combo', 'Small', 8.99)">+</div>
+            </div>
+            <div class="food-item">
+                <div class="food-price">$XX.XX</div>
+                <div class="food-image">
+                    <img src="https://via.placeholder.com/80" alt="Medium Popcorn">
+                </div>
+                <div class="add-to-cart" onclick="addToCart('Popcorn', 'Medium', 6.99)">+</div>
+            </div>
+            <div class="food-item">
+                <div class="food-price">$XX.XX</div>
+                <div class="food-image">
+                    <img src="https://via.placeholder.com/80" alt="Large Popcorn">
+                </div>
+                <div class="add-to-cart" onclick="addToCart('Popcorn', 'Large', 8.99)">+</div>
+            </div>
+            <div class="food-item">
+                <div class="food-price">$XX.XX</div>
+                <div class="food-image">
+                    <img src="https://via.placeholder.com/80" alt="Soda">
+                </div>
+                <div class="add-to-cart" onclick="addToCart('Soda', 'Regular', 4.99)">+</div>
+            </div>
+            <div class="food-item">
+                <div class="food-price">$XX.XX</div>
+                <div class="food-image">
+                    <img src="https://via.placeholder.com/80" alt="Hot Dog">
+                </div>
+                <div class="add-to-cart" onclick="addToCart('Hot Dog', 'Regular', 5.99)">+</div>
+            </div>
+            <div class="food-item">
+                <div class="food-price">$XX.XX</div>
+                <div class="food-image">
+                    <img src="https://via.placeholder.com/80" alt="Ice Cream">
+                </div>
+                <div class="add-to-cart" onclick="addToCart('Ice Cream', 'Regular', 4.99)">+</div>
+            </div>
+        </div>
+        
+        <div class="button-row">
+            <a href="index.html"><button class="btn-cancel">CANCEL</button></a>
+            <a href="select-options.html"><button class="btn-back">BACK</button></a>
+            <a href="order-summary.html"><button class="btn-next">CHECKOUT</button></a>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>
