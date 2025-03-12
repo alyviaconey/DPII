@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Theatre Self-Serve - Movie Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cart Feature -->
+    <div class="cart-icon" onclick="toggleCart()">
+        🛒
+        <div class="cart-badge">0</div>
+    </div>
+    
+    <div class="cart-panel">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <div class="cart-close" onclick="toggleCart()">✕</div>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>$0.00</span>
+            </div>
+            <a href="order-summary.html" class="cart-checkout">Checkout</a>
+        </div>
+    </div>
+
+    <!-- Movie Details Screen -->
+    <div class="screen">
+        <div class="header">
+            <div class="logo-space">THEATRE NAME & LOGO</div>
+        </div>
+        
+        <div class="movie-detail">
+            <div class="movie-info">
+                <h3>SELECTED MOVIE TITLE</h3>
+                <p>LENGTH: -------</p>
+                <p>GENRE: -------</p>
+                <p>RATED: -------</p>
+                <p>SYNOPSIS:</p>
+                <p>------------------------------</p>
+                <p>------------------------------</p>
+                <p>------------------------------</p>
+                <p>------------------------------</p>
+                <p>------------------------------</p>
+            </div>
+            
+            <div>
+                <div class="movie-poster-large">
+                    SELECTED MOVIE
+                </div>
+                <div class="movie-trailer-btn">TRAILER</div>
+            </div>
+        </div>        
+        <div class="button-row">
+            <a href="index.html"><button class="btn-cancel">CANCEL</button></a>
+            <a href="movie-preview.html"><button class="btn-back">BACK</button></a>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

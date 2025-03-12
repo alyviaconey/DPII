@@ -223,6 +223,7 @@ button {
 
 .movie-info {
     flex: 1;
+    text-align: left;
 }
 
 .movie-poster-large {
@@ -233,6 +234,7 @@ button {
     justify-content: center;
     align-items: center;
     border: 1px solid #ccc;
+    flex-direction: column;
 }
 
 .movie-trailer-btn {
@@ -873,3 +875,5 @@ button {
     text-decoration: none;
     color: black;
 }
+
+
