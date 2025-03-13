@@ -130,7 +130,7 @@ function updateTicketTotal() {
 // Movie data array
 const movies = [
     {
-        title: "Avengers: End Game",
+        title: "AVENGERS: ENDGAME",
         length: "3h 1m",
         genre: "Action/Sci-Fi",
         synopsis: `The surviving members of the Avengers and their allies attempt to 
@@ -140,7 +140,7 @@ const movies = [
         poster: "images/movies/avengers-end-game.jpg"
     },
     {
-        title: "A Complete Unknown",
+        title: "A COMPLETE UNKNOWN",
         length: "2h 20m",
         genre: "Music, Drama",
         synopsis: `In the early 1960s, 19-year-old Bob Dylan arrives in New York with his 
@@ -150,7 +150,7 @@ const movies = [
         poster: "images/movies/a-complete-unknown.jpg"
     },
     {
-        title: "Conclave",
+        title: "CONCLAVE",
         length: "2h",
         genre: "Thriller/Mystery",
         synopsis: `Cardinal Lawrence has one of the world's most secretive and ancient events, 
@@ -162,7 +162,7 @@ const movies = [
         poster: "images/movies/conclave.jpg"
     },
     {
-        title: "Dune: Part Two",
+        title: "DUNE: PART TWO",
         length: "2h 46m",
         genre: "Sci-Fi/Adventure",
         synopsis: `Paul Atreides unites with Chani and the Fremen while seeking revenge 
@@ -171,10 +171,10 @@ const movies = [
         he must prevent a terrible future only he can foresee.`,
         rating: "PG",
         trailer: "https://www.youtube.com/watch?v=Way9Dexny3w",
-        poster: "images/movies/dune-2.jpeg"
+        poster: "images/movies/dune-2.jpg"
     },
     {
-        title: "Flow",
+        title: "FLOW",
         length: "1h 25m",
         genre: "Adventure/Family/Animation",
         synopsis: `Cat is a solitary animal, but as its home is devastated by a great flood, 
@@ -185,7 +185,7 @@ const movies = [
         poster: "images/movies/flow.jpg"
     },
     {
-        title: "I'm Still Here",
+        title: "I'M STILL HERE",
         length: "2h 15m",
         genre: "Drama/Historical drama",
         synopsis: `Eunice Paiva begins a lonely battle to learn the truth behind the disappearance of 
@@ -195,7 +195,7 @@ const movies = [
         poster: "images/movies/im-still-here.jpg"
     },
     {
-        title: "Nickel Boys",
+        title: "NICKEL BOYS",
         length: "2h 20m",
         genre: "Drama/Historical drama",
         synopsis: `Elwood Curtis' college dreams are shattered when he's sentenced to Nickel Academy, 
@@ -207,7 +207,7 @@ const movies = [
         poster: "images/movies/nickel-boys.jpg"
     },
     {
-        title: "Nosferatu",
+        title: "NOSFERATU",
         length: "2h 12m",
         genre: "Horror/Mystery",
         synopsis: `In the 1830s, estate agent Thomas Hutter travels to Transylvania for a fateful 
@@ -220,7 +220,7 @@ const movies = [
         poster: "images/movies/nosferatu.jpg"
     },
     {
-        title: "The Substance",
+        title: "THE SUBSTANCE",
         length: "2h 20m",
         genre: " Horror/Sci-fi",
         synopsis: `Fading actress Elisabeth Sparkle becomes distressed when her chauvinistic boss 
@@ -231,7 +231,7 @@ const movies = [
         poster: "images/movies/the-substance.jpg"
     },
     {
-        title: "Wicked",
+        title: "WICKED",
         length: "2h 40m",
         genre: "Musical/Fantasy",
         synopsis: `Misunderstood because of her green skin, a young woman named Elphaba forges an 
@@ -240,7 +240,7 @@ const movies = [
         a crossroad as their lives begin to take very different paths.`,
         trailer: "https://www.youtube.com/watch?v=6COmYeLsz4c",
         rating: "PG",
-        poster: "images/movies/wicked.jpg"
+        poster: "images/movies/wicked.png"
     }
 ];
 
@@ -248,9 +248,15 @@ const movies = [
 // Function to render movies
 function renderMovies() {
     const moviesGrid = document.querySelector(".movies-grid");
-    if (! moviesGrid) {
+
+    if (!(window.location.href).includes("select-movie.html")) {
         return
     }
+
+    if (!moviesGrid) {
+        return
+    }
+
     moviesGrid.innerHTML = ""; // Clear existing content
 
     movies.forEach(movie => {
@@ -263,7 +269,6 @@ function renderMovies() {
                     <img src="${movie.poster}" alt="${movie.title}" class="poster-image"/>
                 </div>
                 <div class="movie-title">${movie.title}</div>
-                <div class="movie-showtime">Next Showing: XX:XX</div>
             </a>
             
         `;
@@ -278,9 +283,39 @@ function renderMovies() {
 }
 
 
+function getMovie() {
+    if (!(window.location.href).includes("movie-details.html")) {
+        return
+    }
+    const selectedMovie = JSON.parse(localStorage.getItem('selectedMovie'));
+
+    if (selectedMovie) {
+        document.getElementsByClassName('movie-title')[0].textContent = selectedMovie.title;
+        document.getElementsByClassName('movie-length')[0].textContent = `LENGTH: ${selectedMovie.length}`;
+        document.getElementsByClassName('movie-genre')[0].textContent = `GENRE: ${selectedMovie.genre}`;
+        document.getElementsByClassName('movie-rating')[0].textContent = `RATED: ${selectedMovie.rating}`;
+        document.getElementsByClassName('movie-synopsis')[0].textContent = `SYNOPSIS: ${selectedMovie.synopsis}`;
+
+        // Update the poster image
+        const posterElement = document.getElementsByClassName('poster-image-large');
+        posterElement[0].src = selectedMovie.poster;
+        ;
+
+        // Update the trailer link
+        const trailerButton = document.getElementsByClassName('movie-trailer-btn');
+        trailerButton[0].onclick = () => {
+            window.open(selectedMovie.trailer, '_blank');
+        };
+    } else {
+        console.error('No movie data found in localStorage.');
+    }
+    
+}
+
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
     updateCartBadge();
     updateCartItems();
     renderMovies();
+    getMovie();
 });
