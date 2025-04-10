@@ -1,0 +1,13 @@
+# Node modules
+node_modules/
+
+# Ignore main.css in the styles folder
+styles/main.css
+
+package-lock.json
+
+package.json
+
+postcss.config.js
+
+tailwind.config.js

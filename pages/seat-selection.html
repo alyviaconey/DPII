@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movie Theatre Self-Serve - Seat Selection</title>
+  <link rel="stylesheet" href="../styles/output.css"/>
+</head>
+<body class="bg-dark text-text-primary flex flex-col items-center justify-center min-h-screen p-5">
+  
+  <!-- Cart Icon -->
+  <div class="fixed top-5 left-5 z-[1100] cursor-pointer" onclick="toggleCart()">
+    <div class="relative inline-block">
+      <?xml version="1.0" encoding="UTF-8"?>
+      <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+           xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+        <path d="M19.5 22C20.3284 22 21 21.3284 21 20.5C21 19.6716 20.3284 19 19.5 19C18.6716 19 18 19.6716 18 20.5C18 21.3284 18.6716 22 19.5 22Z"
+              fill="#000000" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M9.5 22C10.3284 22 11 21.3284 11 20.5C11 19.6716 10.3284 19 9.5 19C8.67157 19 8 19.6716 8 20.5C8 21.3284 8.67157 22 9.5 22Z"
+              fill="#000000" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M16.5 4H22L20 15H15.5M16.5 4L15.5 15M16.5 4H10.75M15.5 15H11.5M10.75 4H5L7 15H11.5M10.75 4L11.5 15"
+              stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M5 4C4.83333 3.33333 4 2 2 2"
+              stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M20 15H7H5.23077C3.44646 15 2.5 15.7812 2.5 17C2.5 18.2188 3.44646 19 5.23077 19H19.5"
+              stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span class="cart-badge absolute -top-2 -left-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white text-xs font-medium shadow-md ring-0 ring-white">
+        0
+      </span>
+    </div>
+  </div>
+  
+  <!-- Cart Panel -->
+  <div id="cartPanel" class="fixed top-0 left-0 z-[1000] w-72 h-screen pt-8 bg-black shadow-lg transition-transform transform -translate-x-full">
+    <div class="p-4 border-b flex justify-between items-center">
+      <h3 class="text-lg font-semibold text-white">Your Cart</h3>
+      <button onclick="toggleCart()" class="text-2xl text-white">&times;</button>
+    </div>
+    <div class="cart-items p-4 overflow-y-auto" style="height: calc(100% - 150px);">
+      <!-- Cart items will be dynamically added here -->
+    </div>
+    <div class="p-4 border-t">
+      <div class="cart-total flex justify-between font-bold text-white mb-4">
+        <span>Total:</span>
+        <span>$0.00</span>
+      </div>
+      <a href="order-summary.html" class="btn btn-primary w-full">Checkout</a>
+    </div>
+  </div>
+  
+  <!-- Seat Selection Screen -->
+  <div class="screen bg-card rounded-lg shadow-xl border border-gray-700 w-11/12 max-w-5xl min-h-[600px] p-5 relative flex flex-col mx-auto">
+    <!-- CANCEL Button (top-right) -->
+    <button onclick="location.href='../index.html'" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 flex items-center justify-center text-base">
+      CANCEL
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <!-- Header with Logo -->
+    <header class="w-full flex justify-center p-4">
+      <div class="logo-space font-bold text-xl text-accent-red">
+        <img src="/assets/images/svgs/theater-logo.svg" alt="Theatre Name & Logo" class="h-40 mx-auto">
+      </div>
+    </header>
+    
+    <!-- Page Title -->
+    <h2 class="text-3xl font-bold text-white mt-4">SELECT YOUR SEATS:</h2>
+    
+    <!-- Screen Area -->
+    <div class="screen-area bg-gray-300 text-gray-800 font-bold py-3 mt-4 mb-6 rounded text-center">
+      SCREEN
+    </div>
+    
+    <!-- Seats Grid (using larger seats) -->
+    <div class="seats-grid grid grid-cols-12 gap-4 mx-auto mb-4">
+      <!-- Row 1 -->
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <!-- Unavailable Seat -->
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <!-- Empty cells for spacing -->
+      <div></div>
+      <div></div>
+      
+      <!-- Row 2 -->
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <div></div>
+      <!-- Wheelchair Seat -->
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-blue-300 border border-blue-500" onclick="toggleSeatSelection(this)">
+        ♿
+      </div>
+      <!-- Companion Seat available -->
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div></div>
+      <!-- Another Wheelchair Seat -->
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-blue-300 border border-blue-500" onclick="toggleSeatSelection(this)">
+        ♿
+      </div>
+      <!-- Another Companion Seat -->
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div></div>
+      <div></div>
+      
+      <!-- Row 3 -->
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div></div>
+      <div></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <div></div>
+      <div></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-gray-300 border border-gray-400" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      
+      <!-- Row 4 -->
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <!-- Two Selected Seats -->
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-pink-300 border border-pink-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-pink-300 border border-pink-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm cursor-pointer bg-green-300 border border-green-500" onclick="toggleSeatSelection(this)"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-sm bg-gray-300 border border-gray-400"></div>
+    </div>
+    
+    <!-- Seat Counter -->
+    <div class="seat-counter text-white font-bold text-lg mb-4">2/2</div>
+    
+    <!-- Seat Legend -->
+    <div class="seat-legend flex flex-row justify-evenly items-center gap-6 mb-8 text-base">
+      <div class="legend-item flex items-center gap-3 text-white">
+        <div class="legend-color w-8 h-8 rounded-full" style="background-color: #90ee90;"></div>
+        <span>AVAILABLE</span>
+      </div>
+      <div class="legend-item flex items-center gap-3 text-white">
+        <div class="legend-color w-8 h-8 rounded-full" style="background-color: #ccc;"></div>
+        <span>UNAVAILABLE</span>
+      </div>
+      <div class="legend-item flex items-center gap-3 text-white">
+        <div class="legend-color w-8 h-8 rounded-full" style="background-color: #add8e6;"></div>
+        <span>WHEELCHAIR</span>
+      </div>
+      <div class="legend-item flex items-center gap-3 text-white">
+        <div class="legend-color w-8 h-8 rounded-full flex items-center justify-center text-sm" style="background-color: #add8e6;">♿</div>
+        <span>COMPANION</span>
+      </div>
+      <div class="legend-item flex items-center gap-3 text-white">
+        <div class="legend-color w-8 h-8 rounded-full" style="background-color: #ffb6c1;"></div>
+        <span>SELECTED</span>
+      </div>
+    </div>
+    
+    
+    <!-- Bottom Navigation: BACK and NEXT -->
+    <div class="button-row mt-auto w-full flex justify-between px-4">
+      <a href="ticket-selection.html" class="btn btn-outline text-white w-32 h-14 flex items-center justify-center text-base">
+        BACK
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </a>
+      <a href="order-summary.html" class="btn btn-primary text-white w-32 h-14 flex items-center justify-center text-base">
+        NEXT
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+  
+  <script src="../js/scripts.js"></script>
+  <script>
+    // Add seat selection functionality
+      function toggleSeatSelection(seat) {
+      if (seat.classList.contains('bg-green-300')) {
+        // If seat is available, mark it as selected.
+        seat.classList.remove('bg-green-300', 'border-green-500');
+        seat.classList.add('bg-pink-300', 'border-pink-500');
+      } else if (seat.classList.contains('bg-pink-300')) {
+        // If seat is selected, revert back to available.
+        seat.classList.remove('bg-pink-300', 'border-pink-500');
+        seat.classList.add('bg-green-300', 'border-green-500');
+      }
+      
+      // Update selected seats counter (counts all elements with bg-pink-300)
+      const selectedSeats = document.querySelectorAll('.bg-pink-300').length;
+      document.querySelector('.seat-counter').textContent = `${selectedSeats}/2`;
+    }
+</script>
+</body>
+</html>
