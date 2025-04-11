@@ -58,7 +58,7 @@
     </header>
     
     <!-- Cancel Button (top-right) -->
-    <button onclick="location.href='../index.html'" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 flex items-center justify-center text-base">
+    <button onclick="location.href='../index.html'; clearCart()" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 flex items-center justify-center text-base">
       CANCEL
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -69,7 +69,7 @@
     <div class="flex flex-col md:flex-row gap-6 mt-4">
       <!-- Movie Info-->
       <div class="movie-info flex-1 text-center md:text-left space-y-2">
-        <h3 class="movie-title text-3xl font-bold text-white">Movie Title</h3>
+        <h3 id="movie-title" class="movie-title text-3xl font-bold text-white">Movie Title</h3>
         <p class="movie-length text-sm text-gray-300">Length: 2h 10m</p>
         <p class="movie-genre text-sm text-gray-300">Genre: Action / Drama</p>
         <p class="movie-rating text-sm text-gray-300">Rated: PG-13</p>
@@ -106,26 +106,26 @@
         <div>
           <div class="showtime-type text-lg font-semibold text-gray-200 mb-2">IMAX</div>
           <div class="showtime-grid flex flex-wrap gap-3">
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html">10:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html">12:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html">15:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html">17:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html">19:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html">21:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">10:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">12:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">15:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">17:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">19:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">21:00</a>
           </div>
         </div>
         <div>
           <div class="showtime-type text-lg font-semibold text-gray-200 mb-2">ACCESSIBLE (DV, CC)</div>
           <div class="showtime-grid flex flex-wrap gap-3">
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html">11:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html">19:30</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">11:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">19:30</a>
           </div>
         </div>
         <div>
           <div class="showtime-type text-lg font-semibold text-gray-200 mb-2">3D</div>
           <div class="showtime-grid flex flex-wrap gap-3">
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html">18:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html">20:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">18:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">20:00</a>
           </div>
         </div>
       </div>
@@ -133,7 +133,7 @@
     
     <!-- Bottom Button Row -->
     <div class="mt-auto w-full flex justify-between px-4">
-      <button onclick="history.back()" class="btn btn-outline text-white w-32 h-14 flex items-center justify-center text-base">
+      <button onclick="prevPage('movie-details.html')" class="btn btn-outline text-white w-32 h-14 flex items-center justify-center text-base">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>

@@ -1,6 +1,50 @@
 // JavaScript for basic prototype functionality
 let cartItems = [];
 let cartCount = 0;
+let selected = 0;
+
+ 
+function validateSeats(){
+    t = JSON.parse(localStorage.getItem('tickets'));
+    if(selected < (t['adult']+t['child']+t['senior'])) alert(`Select ${(t['adult']+t['child']+t['senior']) - selected} more seats`)
+    else {
+        localStorage.setItem('lastPage', "seat-selection.html");
+        window.location.href = 'order-summary.html';
+    }
+}
+
+function validateFood(){
+    food = localStorage.getItem('cartItems');
+    if(food == null) alert("Add at least 1 item");
+    else{
+        localStorage.setItem('lastPage', "food.html");
+        window.location.href = 'order-summary.html';
+    }
+}
+
+function prevPage(current_location){
+    // this is to handle where different paths can merge (i.e. checkout pages for food or tickets), also when
+    // href attribute is not availible directly from html (i.e. using a button or something)
+    console.log(window.location.href);
+    // window.location.href = lastPage;
+    // lastPage = "../index.html";
+    switch (current_location){
+        case "select-options.html":
+            window.location.href = "../index.html";
+            break;
+        case "movie-details.html":
+            window.location.href = "select-movie.html";
+            break;
+        case "select-movie.html":
+            window.location.href = "select-options.html"
+            break;
+        case "order-summary.html":
+            // this is where the differentiation happens
+            window.location.href = localStorage.getItem('lastPage');
+            break;
+    }
+}
+
 
 function toggleCart() {
     const cartPanel = document.getElementById('cartPanel');
@@ -81,11 +125,15 @@ function updateCartItems() {
     if (cartTotal) {
         cartTotal.textContent = `$${total.toFixed(2)}`;
     }
+
+    console.log(cartItems);
 }
 
 function clearCart() {
     // Remove cart items from localStorage
     localStorage.removeItem('cartItems');
+    localStorage.removeItem('tickets');
+    localStorage.removeItem('movie');
     // Update the badge and cart items container
     updateCartBadge();
     updateCartItems();
@@ -135,6 +183,16 @@ function updateTicketTotal() {
         ticketTotal.textContent = `TOTAL: $${total.toFixed(2)}`;
     }
 }
+
+function saveTickets(){
+    console.log(tickets);
+    if(tickets['adult'] + tickets['child'] + tickets['senior'] == 0) alert("Add at least 1 ticket");
+    else{ 
+        localStorage.setItem('tickets', JSON.stringify(tickets));
+        window.location.href = "seat-selection.html"
+    }
+}
+
 
 // Movie data array
 const movies = [
@@ -350,3 +408,23 @@ document.addEventListener('DOMContentLoaded', function() {
     renderMovies();
     getMovie();
 });
+
+// Add seat selection functionality
+function toggleSeatSelection(seat) {
+    t = JSON.parse(localStorage.getItem('tickets'));
+    if (seat.classList.contains('bg-green-300') && selected < (t['adult']+t['child']+t['senior'])) {
+      // If seat is available, mark it as selected.
+      seat.classList.remove('bg-green-300', 'border-green-500');
+      seat.classList.add('bg-pink-300', 'border-pink-500');
+      selected++;
+    } else if (seat.classList.contains('bg-pink-300')) {
+      // If seat is selected, revert back to available.
+      seat.classList.remove('bg-pink-300', 'border-pink-500');
+      seat.classList.add('bg-green-300', 'border-green-500');
+      selected--;
+    }
+    
+    // // Update selected seats counter (counts all elements with bg-pink-300)
+    const selectedSeats = document.querySelectorAll('.bg-pink-300').length;
+    document.querySelector('.seat-counter').textContent = `${selectedSeats}/${t['adult']+t['child']+t['senior']}`;
+  }

@@ -46,7 +46,7 @@
   <!-- Select Options Screen -->
   <div class="screen bg-card rounded-lg shadow-xl border border-gray-700 w-11/12 max-w-5xl min-h-[600px] p-5 relative flex flex-col items-center text-center mx-auto">
     <!-- Cancel button in top-right -->
-    <button onclick="location.href='../index.html'" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 text-center flex items-center justify-center text-base">
+    <button onclick="location.href='../index.html'; clearCart()" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 text-center flex items-center justify-center text-base">
       CANCEL
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -109,7 +109,7 @@
 
     <!-- Button Row -->
     <div class="mt-auto w-full flex justify-between px-4">
-      <button onclick="history.back()" class="btn btn-outline text-white w-32 h-14 text-center justify-center text-base">
+      <button onclick="clearCart(); prevPage('select-options.html')" class="btn btn-outline text-white w-32 h-14 text-center justify-center text-base">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>

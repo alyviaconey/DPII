@@ -51,7 +51,7 @@
   <!-- Order Summary Screen -->
   <div class="screen bg-card rounded-lg shadow-xl border border-gray-700 w-11/12 max-w-5xl min-h-[600px] p-5 relative flex flex-col mx-auto">
     <!-- Top-right CANCEL Button -->
-    <button onclick="location.href='../index.html'" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 flex items-center justify-center text-base">
+    <button onclick="location.href='../index.html'; clearCart()" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 flex items-center justify-center text-base">
       CANCEL
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -73,7 +73,7 @@
       <div class="summary-left flex-1 space-y-6">
         <div>
           <h3 class="text-xl font-bold text-white">MOVIE:</h3>
-          <p class="text-lg text-gray-300">-------</p>
+          <p id="movie" class="text-lg text-gray-300">-------</p>
         </div>
         <div>
           <h3 class="text-xl font-bold text-white">TIME:</h3>
@@ -91,48 +91,48 @@
           <h3 class="text-xl font-bold text-white">TICKETS:</h3>
           <div class="space-y-2">
             <div class="flex justify-between text-lg text-gray-300">
-              <span># Adult</span>
-              <span>$XX.XX</span>
+              <span id="adult-quantity"># Adult</span>
+              <span id="adult-price">$0.00</span>
             </div>
             <div class="flex justify-between text-lg text-gray-300">
-              <span># Child</span>
-              <span>$XX.XX</span>
+              <span id="child-quantity"># Child</span>
+              <span id="child-price">$0.00</span>
             </div>
             <div class="flex justify-between text-lg text-gray-300">
-              <span># Senior</span>
-              <span>$XX.XX</span>
+              <span id="senior-quantity"># Senior</span>
+              <span id="senior-price">$0.00</span>
             </div>
           </div>
         </div>
         <div>
           <h3 class="text-xl font-bold text-white">CONCESSION:</h3>
-          <div class="space-y-2">
-            <div class="flex justify-between text-lg text-gray-300">
+          <div id="concessions"class="space-y-2">
+            <!-- <div class="flex justify-between text-lg text-gray-300">
               <span># Item</span>
-              <span>$XX.XX</span>
+              <span>$0.00</span>
             </div>
             <div class="flex justify-between text-lg text-gray-300">
               <span># Item</span>
-              <span>$XX.XX</span>
+              <span>$0.00</span>
             </div>
             <div class="flex justify-between text-lg text-gray-300">
               <span># Item</span>
-              <span>$XX.XX</span>
-            </div>
+              <span>$0.00</span>
+            </div> -->
           </div>
         </div>
         <div class="flex flex-col gap-2">
           <div class="flex justify-between text-xl text-white">
             <span>SUBTOTAL:</span>
-            <span>$XX.XX</span>
+            <span id="subtotal">$0.00</span>
           </div>
           <div class="flex justify-between text-xl text-white">
             <span>TAX:</span>
-            <span>$XX.XX</span>
+            <span id="tax">$0.00</span>
           </div>
           <div class="flex justify-between text-2xl font-bold text-white">
             <span>TOTAL:</span>
-            <span>$XX.XX</span>
+            <span id="total">$0.00</span>
           </div>
         </div>
       </div>
@@ -163,7 +163,7 @@
     
     <!-- Bottom Button Row -->
     <div class="mt-auto w-full flex justify-between px-4">
-      <a href="seat-selection.html" class="btn btn-outline text-white w-32 h-14 flex items-center justify-center text-base">
+      <a onclick="prevPage('order-summary.html')" class="btn btn-outline text-white w-32 h-14 flex items-center justify-center text-base">
         BACK
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none"
              viewBox="0 0 24 24" stroke="currentColor">
@@ -183,5 +183,54 @@
   </div>
   
   <script src="../js/scripts.js"></script>
+  <script>
+    window.onload = () => {
+      subtotal = 0;
+      total = 0;
+      tax = 0;
+      t = JSON.parse(localStorage.getItem('tickets'));
+      if(t != null){
+        document.getElementById("adult-quantity").innerText = `${t['adult']} Adult`;
+        document.getElementById("adult-price").innerText = `$${(t['adult']*12.99).toFixed(2)}`;
+        subtotal+=(t['adult']*12.99);
+
+        document.getElementById("child-quantity").innerText = `${t['child']} Child`;
+        document.getElementById("child-price").innerText = `$${(t['child']*8.99).toFixed(2)}`;
+        subtotal+=(t['child']*8.99);
+
+        document.getElementById("senior-quantity").innerText = `${t['senior']} Senior`;
+        document.getElementById("senior-price").innerText = `$${(t['senior']*10.99).toFixed(2)}`;
+        subtotal+=(t['senior']*10.99);
+
+        document.getElementById("movie").innerText = localStorage.getItem("movie");
+      }
+
+      food = JSON.parse(localStorage.getItem('cartItems'));
+
+      if(food != null){
+        console.log(food.length);
+
+        document.getElementById("concessions").innerText = "";
+        for(i=0; i<food.length; i++){
+          document.getElementById("concessions").innerHTML += 
+          `
+          <div class="flex justify-between text-lg text-gray-300">
+              <span>${food[i]['size']} ${food[i]['name']}</span>
+              <span>$${food[i]['price']}</span>
+            </div>
+          `;
+          subtotal += food[i]['price'];
+        }
+
+      }
+      
+      tax = subtotal*0.05;
+      total = subtotal+tax;
+
+      document.getElementById("subtotal").innerText = `$${subtotal.toFixed(2)}`;
+      document.getElementById("tax").innerText = `$${tax.toFixed(2)}`;
+      document.getElementById("total").innerText = `$${total.toFixed(2)}`;
+    }
+  </script>
 </body>
 </html>

@@ -46,7 +46,7 @@
   <!-- Food Screen -->
   <div class="screen bg-card rounded-lg shadow-xl border border-gray-700 w-11/12 max-w-5xl min-h-[600px] p-5 relative flex flex-col mx-auto">
     <!-- Top-right CANCEL Button -->
-    <button onclick="location.href='../index.html'" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 flex items-center justify-center text-base">
+    <button onclick="location.href='../index.html' ; clearCart()" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 flex items-center justify-center text-base">
       CANCEL
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -69,48 +69,48 @@
         <div class="food-image mb-3">
           <img src="/assets/images/food/popcorn.png" alt="Popcorn" class="w-24 h-24 object-contain">
         </div>
-        <button class="add-to-cart btn btn-primary" onclick="addToCart('Popcorn', 'Large', 8.99)">+</button>
+        <button class="add-to-cart btn btn-primary" onclick="addToCart('Popcorn', 'Large', 21.99)">+</button>
       </div>
       <div class="food-item bg-gray-800 rounded-lg p-4 flex flex-col items-center">
         <div class="food-price text-xl font-bold text-white mb-2">$3.99</div>
         <div class="food-image mb-3">
           <img src="/assets/images/food/dog.png" alt="Dog" class="w-24 h-24 object-contain">
         </div>
-        <button class="add-to-cart btn btn-primary" onclick="addToCart('Dog', 'Large', 8.99)">+</button>
+        <button class="add-to-cart btn btn-primary" onclick="addToCart('Hot Dog', 'Large', 3.99)">+</button>
       </div>
       <div class="food-item bg-gray-800 rounded-lg p-4 flex flex-col items-center">
         <div class="food-price text-xl font-bold text-white mb-2">$40.99</div>
         <div class="food-image mb-3">
           <img src="/assets/images/food/combo.png" alt="Combo" class="w-24 h-24 object-contain">
         </div>
-        <button class="add-to-cart btn btn-primary" onclick="addToCart('Combo', 'Large', 8.99)">+</button>
+        <button class="add-to-cart btn btn-primary" onclick="addToCart('Combo', 'Large', 40.99)">+</button>
       </div>
       <div class="food-item bg-gray-800 rounded-lg p-4 flex flex-col items-center">
         <div class="food-price text-xl font-bold text-white mb-2">$4.99</div>
         <div class="food-image mb-3">
           <img src="/assets/images/food/pop.png" alt="Pop" class="w-24 h-24 object-contain">
         </div>
-        <button class="add-to-cart btn btn-primary" onclick="addToCart('Pop', 'Large', 8.99)">+</button>
+        <button class="add-to-cart btn btn-primary" onclick="addToCart('Pop', 'Large', 4.99)">+</button>
       </div>
       <div class="food-item bg-gray-800 rounded-lg p-4 flex flex-col items-center">
         <div class="food-price text-xl font-bold text-white mb-2">$7.99</div>
         <div class="food-image mb-3">
           <img src="/assets/images/food/candy.png" alt="Candy" class="w-24 h-24 object-contain">
         </div>
-        <button class="add-to-cart btn btn-primary" onclick="addToCart('Candy', 'Large', 8.99)">+</button>
+        <button class="add-to-cart btn btn-primary" onclick="addToCart('Candy', 'Large', 7.99)">+</button>
       </div>
       <div class="food-item bg-gray-800 rounded-lg p-4 flex flex-col items-center">
         <div class="food-price text-xl font-bold text-white mb-2">$5.99</div>
         <div class="food-image mb-3">
           <img src="/assets/images/food/icecream.png" alt="Ice Cream" class="w-24 h-24 object-contain">
         </div>
-        <button class="add-to-cart btn btn-primary" onclick="addToCart('Ice Cream', 'Large', 8.99)">+</button>
+        <button class="add-to-cart btn btn-primary" onclick="addToCart('Ice Cream', 'Large', 5.99)">+</button>
       </div>
     </div>
     
     <!-- Bottom Button Row -->
     <div class="mt-auto w-full flex justify-between px-4">
-      <a href="seat-selection.html" class="btn btn-outline text-white w-32 h-14 flex items-center justify-center text-base">
+      <a onclick="clearCart();" href="select-options.html" class="btn btn-outline text-white w-32 h-14 flex items-center justify-center text-base">
         BACK
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none"
           viewBox="0 0 24 24" stroke="currentColor">
@@ -118,7 +118,7 @@
           d="M15 19l-7-7 7-7" />
         </svg>
       </a>
-      <a href="order-summary.html" class="btn btn-primary text-white w-32 h-14 items-center justify-center text-base flex gap-1 p-2">
+      <a onclick="validateFood()" class="btn btn-primary text-white w-32 h-14 items-center justify-center text-base flex gap-1 p-2">
         CHECKOUT
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" 
              viewBox="0 0 24 24" stroke="currentColor">
