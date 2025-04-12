@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Theatre Self-Serve</title>
+  <link rel="stylesheet" href="styles/output.css">
+</head>
+<body class="bg-dark text-text-primary flex flex-col items-center justify-center min-h-screen p-5">
+
+  <!-- Cart Icon -->
+  <div class="fixed top-5 left-5 z-[1100] cursor-pointer" onclick="toggleCart()">
+    <div class="relative inline-block">
+      <?xml version="1.0" encoding="UTF-8"?>
+      <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+        <path d="M19.5 22C20.3284 22 21 21.3284 21 20.5C21 19.6716 20.3284 19 19.5 19C18.6716 19 18 19.6716 18 20.5C18 21.3284 18.6716 22 19.5 22Z" fill="#000000" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M9.5 22C10.3284 22 11 21.3284 11 20.5C11 19.6716 10.3284 19 9.5 19C8.67157 19 8 19.6716 8 20.5C8 21.3284 8.67157 22 9.5 22Z" fill="#000000" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M16.5 4H22L20 15H15.5M16.5 4L15.5 15M16.5 4H10.75M15.5 15H11.5M10.75 4H5L7 15H11.5M10.75 4L11.5 15" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M5 4C4.83333 3.33333 4 2 2 2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M20 15H7H5.23077C3.44646 15 2.5 15.7812 2.5 17C2.5 18.2188 3.44646 19 5.23077 19H19.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span class="cart-badge absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white text-xs font-medium shadow-md ring-0 ring-white">0</span>
+    </div>
+  </div>
+
+  <!-- Main Screen Container -->
+  <div class="screen bg-card rounded-lg shadow-xl border border-gray-700 w-11/12 max-w-5xl min-h-[600px] p-5 relative flex flex-col items-center text-center mx-auto">
+    
+    <!-- Header with Logo -->
+    <header class="w-full flex justify-center p-4">
+      <div class="logo-space font-bold text-xl text-accent-red">
+        <img src="/assets/images/svgs/theater-logo.svg" alt="Theatre Name & Logo" class="h-40 mx-auto" />
+      </div>
+    </header>
+
+    <!-- Main Title -->
+    <h1 class="mt-4 text-4xl font-bold text-white">SELF-SERVE</h1>
+
+    <!-- Start Circle -->
+    <a onclick="lastPage = '../index.html'" href="pages/select-options.html" class="no-underline">
+      <div class="flex flex-col items-center justify-center w-[180px] h-[180px] rounded-full border-2 border-gray-800 mx-auto my-12 cursor-pointer shadow-lg">
+        <div class="text-2xl font-semibold mb-5 transition-transform duration-200 hover:scale-105 hover:text-white">START</div>
+        <div class="w-12 h-12">
+          <img class="transition-transform duration-200 hover:scale-105" src="/assets/images/svgs/pointer.svg" alt="Pointer" />
+        </div>
+      </div>
+    </a>
+
+    <!-- Payment Options -->
+    <div class="flex justify-center flex-wrap gap-6 mt-10">
+        <div class="flex flex-col items-center">
+          <img src="./assets/images/svgs/visa.svg" alt="Visa" class="h-10 aspect-[3/2] object-contain opacity-90 hover:opacity-100 transition" />
+          <span class="text-xs mt-1">Visa</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <img src="./assets/images/svgs/mastercard.svg" alt="Mastercard" class="h-10 aspect-[3/2] object-contain opacity-90 hover:opacity-100 transition" />
+          <span class="text-xs mt-1">Mastercard</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <img src="./assets/images/svgs/amex.svg" alt="Amex" class="h-10 aspect-[3/2] object-contain opacity-90 hover:opacity-100 transition" />
+          <span class="text-xs mt-1">Amex</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <img src="./assets/images/svgs/applepay.svg" alt="Apple Pay" class="h-10 aspect-[4/3] object-contain opacity-90 hover:opacity-100 transition dark:invert" />
+          <span class="text-xs mt-1">Apple Pay</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <img src="./assets/images/svgs/googlepay.svg" alt="Google Pay" class="h-10 aspect-[3/2] object-contain opacity-90 hover:opacity-100 transition" />
+          <span class="text-xs mt-1">Google Pay</span>
+        </div>
+      </div>
+
+  </div>
+
+  <script src="js/scripts.js"></script>
+  <script>
+    window.onload = () => {
+      clearCart();
+    }
+  </script>
+</body>
+</html>
