@@ -106,26 +106,26 @@
         <div>
           <div class="showtime-type text-lg font-semibold text-gray-200 mb-2">IMAX</div>
           <div class="showtime-grid flex flex-wrap gap-3">
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">10:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">12:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">15:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">17:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">19:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">21:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="setMovieDetails(document.getElementById('movie-title').innerText, '10:00', '1')">10:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="setMovieDetails(document.getElementById('movie-title').innerText, '12:00', '2')">12:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="setMovieDetails(document.getElementById('movie-title').innerText, '15:00', '3')">15:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="setMovieDetails(document.getElementById('movie-title').innerText, '17:00', '1')">17:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="setMovieDetails(document.getElementById('movie-title').innerText, '19:00', '2')">19:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="setMovieDetails(document.getElementById('movie-title').innerText, '21:00', '3')">21:00</a>
           </div>
         </div>
         <div>
           <div class="showtime-type text-lg font-semibold text-gray-200 mb-2">ACCESSIBLE (DV, CC)</div>
           <div class="showtime-grid flex flex-wrap gap-3">
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">11:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">19:30</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="setMovieDetails(document.getElementById('movie-title').innerText, '11:00', '4')">11:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="setMovieDetails(document.getElementById('movie-title').innerText, '19:30', '4')">19:30</a>
           </div>
         </div>
         <div>
           <div class="showtime-type text-lg font-semibold text-gray-200 mb-2">3D</div>
           <div class="showtime-grid flex flex-wrap gap-3">
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">18:00</a>
-            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="localStorage.setItem('movie', document.getElementById('movie-title').innerText)">20:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="setMovieDetails(document.getElementById('movie-title').innerText, '18:00', '5')">18:00</a>
+            <a class="showtime btn btn-outline text-white" href="ticket-selection.html" onclick="setMovieDetails(document.getElementById('movie-title').innerText, '20:00', '5')">20:00</a>
           </div>
         </div>
       </div>
@@ -158,6 +158,12 @@
       button.classList.add('hidden');
       // Optionally, you can start the video playback:
       video.play();
+    }
+
+    function setMovieDetails(title, showtime, theatre){
+      localStorage.setItem('movie', title);
+      localStorage.setItem('showtime', showtime);
+      localStorage.setItem('theatre', theatre);
     }
   </script>
 </body>

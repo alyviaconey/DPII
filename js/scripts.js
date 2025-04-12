@@ -3,6 +3,7 @@ let cartItems = [];
 let cartCount = 0;
 let selected = 0;
 
+
  
 function validateSeats(){
     t = JSON.parse(localStorage.getItem('tickets'));
@@ -134,6 +135,12 @@ function clearCart() {
     localStorage.removeItem('cartItems');
     localStorage.removeItem('tickets');
     localStorage.removeItem('movie');
+    localStorage.removeItem('logged-in');
+    localStorage.removeItem('showtime');
+    localStorage.removeItem('theatre');
+    localStorage.removeItem('seats');
+
+
     // Update the badge and cart items container
     updateCartBadge();
     updateCartItems();
@@ -355,7 +362,7 @@ function renderMovies() {
                 </div>
                 <div class="mt-2 text-center">
                     <div class="movie-title text-white font-bold text-sm">${movie.title}</div>
-                    <div class="movie-showtime text-gray-400 text-xs">Next Showing: XX:XX</div>
+                    <div class="movie-showtime text-gray-400 text-xs">Next Showing: 10:00</div>
                 </div>
             </a>
         `;
@@ -410,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Add seat selection functionality
-function toggleSeatSelection(seat) {
+function toggleSeatSelection(seat, id) {
     t = JSON.parse(localStorage.getItem('tickets'));
     if (seat.classList.contains('bg-green-300') && selected < (t['adult']+t['child']+t['senior'])) {
       // If seat is available, mark it as selected.
@@ -426,5 +433,10 @@ function toggleSeatSelection(seat) {
     
     // // Update selected seats counter (counts all elements with bg-pink-300)
     const selectedSeats = document.querySelectorAll('.bg-pink-300').length;
+    arr = []
+    for(i=0; i<selectedSeats; i++){
+        arr.push(document.querySelectorAll('.bg-pink-300')[i].id);
+    }
+    localStorage.setItem('seats', JSON.stringify(arr));
     document.querySelector('.seat-counter').textContent = `${selectedSeats}/${t['adult']+t['child']+t['senior']}`;
   }

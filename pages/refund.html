@@ -69,9 +69,9 @@
         <input type="text" placeholder="Enter Booking ID" class="w-full text-black p-3 border bg-white border-gray-400 rounded"/>
       </div>
       <div class="refund-policy text-gray-400 text-lg">
-        <p>- Refunds processed up to X minutes prior to showtime.</p>
+        <p>- Refunds processed up to 30 minutes prior to showtime.</p>
         <p>- Ticket will be void.</p>
-        <p>- Funds will appear back in the account it was purchased within X days.</p>
+        <p>- Funds will appear back in the account it was purchased within 30 days.</p>
       </div>
       <!-- Refund Checkbox -->
       <div class="refund-checkbox flex items-center gap-3">
@@ -106,5 +106,10 @@
   </div>
   
   <script src="../js/scripts.js"></script>
+  <script>
+    window.onload = () => {
+      clearCart();
+    }
+  </script>
 </body>
 </html>

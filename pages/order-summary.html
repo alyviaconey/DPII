@@ -77,15 +77,15 @@
         </div>
         <div>
           <h3 class="text-xl font-bold text-white">TIME:</h3>
-          <p class="text-lg text-gray-300">-------</p>
+          <p id="showtime" class="text-lg text-gray-300">-------</p>
         </div>
         <div>
           <h3 class="text-xl font-bold text-white">THEATRE:</h3>
-          <p class="text-lg text-gray-300">-------</p>
+          <p id="theatre" class="text-lg text-gray-300">-------</p>
         </div>
         <div>
           <h3 class="text-xl font-bold text-white">SEATS:</h3>
-          <p class="text-lg text-gray-300">-------</p>
+          <p id="seats" class="text-lg text-gray-300">-------</p>
         </div>
         <div>
           <h3 class="text-xl font-bold text-white">TICKETS:</h3>
@@ -107,18 +107,6 @@
         <div>
           <h3 class="text-xl font-bold text-white">CONCESSION:</h3>
           <div id="concessions"class="space-y-2">
-            <!-- <div class="flex justify-between text-lg text-gray-300">
-              <span># Item</span>
-              <span>$0.00</span>
-            </div>
-            <div class="flex justify-between text-lg text-gray-300">
-              <span># Item</span>
-              <span>$0.00</span>
-            </div>
-            <div class="flex justify-between text-lg text-gray-300">
-              <span># Item</span>
-              <span>$0.00</span>
-            </div> -->
           </div>
         </div>
         <div class="flex flex-col gap-2">
@@ -138,21 +126,21 @@
       </div>
       <!-- Right Login Section -->
       <div class="login-section flex-1 border-l border-gray-500 pl-6 space-y-6">
-        <h3 class="text-xl font-bold text-white">MEMBER LOGIN (Optional)</h3>
-        <div class="login-form space-y-4">
+        <form id="login-form" class="login-form space-y-4">
+          <h3 class="text-xl font-bold text-white">MEMBER LOGIN (Optional)</h3>
           <div class="form-control">
             <label class="block text-lg text-white mb-1">USERNAME:</label>
-            <input type="text" class="w-full p-2 border bg-white border-gray-400 rounded" />
+            <input required type="text" class="w-full p-2 border bg-white border-gray-400 rounded" />
           </div>
           <div class="form-control">
             <label class="block text-lg text-white mb-1">PASSWORD:</label>
-            <input type="password" class="w-full p-2 border bg-white border-gray-400 rounded" />
+            <input required type="password" class="w-full p-2 border bg-white border-gray-400 rounded" />
           </div>
-          <button class="btn btn-primary w-full">LOGIN</button>
-        </div>
-        <div class="points-available text-lg text-white">
-          You have <span class="points-highlight text-accent-red font-bold">XX</span> points available!
-          <button class="btn btn-outline ml-2">REDEEM</button>
+          <button type="submit" class="btn btn-primary w-full">LOGIN</button>
+        </form>
+        <div id="points" class="points-available text-lg text-white">
+          You have <span class="points-highlight text-accent-red font-bold">500</span> points available!
+          <button class="btn btn-outline ml-2" onclick="redeem()">REDEEM</button>
         </div>
         <div class="stacked-actions flex flex-col gap-4">
           <a href="food.html" class="btn btn-secondary w-full uppercase font-bold">ADD FOOD</a>
@@ -188,6 +176,14 @@
       subtotal = 0;
       total = 0;
       tax = 0;
+
+      if(localStorage.getItem('logged-in') != null){
+        if(localStorage.getItem('logged-in') == "True"){
+         document.getElementById("login-form").style.display = "none"
+         document.getElementById("points").style.display = "inline"
+        }
+      }
+
       t = JSON.parse(localStorage.getItem('tickets'));
       if(t != null){
         document.getElementById("adult-quantity").innerText = `${t['adult']} Adult`;
@@ -203,12 +199,14 @@
         subtotal+=(t['senior']*10.99);
 
         document.getElementById("movie").innerText = localStorage.getItem("movie");
+        document.getElementById("showtime").innerText = localStorage.getItem("showtime");
+        document.getElementById("theatre").innerText = localStorage.getItem("theatre");
+
       }
 
       food = JSON.parse(localStorage.getItem('cartItems'));
 
       if(food != null){
-        console.log(food.length);
 
         document.getElementById("concessions").innerText = "";
         for(i=0; i<food.length; i++){
@@ -230,7 +228,22 @@
       document.getElementById("subtotal").innerText = `$${subtotal.toFixed(2)}`;
       document.getElementById("tax").innerText = `$${tax.toFixed(2)}`;
       document.getElementById("total").innerText = `$${total.toFixed(2)}`;
+      seatStr = "";
+      seatArr = JSON.parse(localStorage.getItem('seats'));
+      for(i=0; i<seatArr.length; i++){
+        seatStr += seatArr[i];
+        if(i != seatArr.length-1) seatStr += ", ";
+      }
+      document.getElementById("seats").innerText = seatStr;
+
     }
+
+    document.getElementById("login-form").addEventListener("submit", async (event) => {
+      document.getElementById("points").style.display = 'inline';
+      localStorage.setItem("logged-in", "True");
+    });
+
+    
   </script>
 </body>
 </html>

@@ -80,8 +80,8 @@
 
     <!-- Theatre Info -->
     <div class="theatre-info mt-8 text-white text-xl">
-      <p>THEATRE 8</p>
-      <p>SEATS: X, X, X</p>
+      <p id="theatre">THEATRE 8</p>
+      <p id="seats">SEATS: X, X, X</p>
     </div>
 
     <!-- Bottom Button Row -->
@@ -101,6 +101,19 @@
       </a>
     </div>
   </div>
+
+  <script>
+    window.onload = () => {
+      document.getElementById("theatre").innerText = "THEATRE: "+localStorage.getItem('theatre');
+      seatStr = "";
+      seatArr = JSON.parse(localStorage.getItem('seats'));
+      for(i=0; i<seatArr.length; i++){
+        seatStr += seatArr[i];
+        if(i != seatArr.length-1) seatStr += ", ";
+      }
+      document.getElementById("seats").innerText = "SEATS: "+seatStr;
+    }
+  </script>
 
   <script src="../js/scripts.js"></script>
 </body>
