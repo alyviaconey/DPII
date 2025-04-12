@@ -130,16 +130,16 @@
         <div class="login-form space-y-4">
           <div class="form-control">
             <label class="block text-lg text-white mb-1">USERNAME:</label>
-            <input type="text" class="w-full p-2 border bg-white border-gray-400 rounded" />
+            <input id="usernameInput" type="text" class="w-full p-2 border bg-white border-gray-400 rounded" />
           </div>
           <div class="form-control">
             <label class="block text-lg text-white mb-1">PASSWORD:</label>
-            <input type="password" class="w-full p-2 border bg-white border-gray-400 rounded" />
+            <input id="passwordInput" type="password" class="w-full p-2 border bg-white border-gray-400 rounded" />
           </div>
-          <button class="btn btn-primary w-full">LOGIN</button>
+          <button onclick="handleLogin()" class="btn btn-primary w-full">LOGIN</button>
         </div>
-        <div class="points-available text-lg text-white">
-          You have <span class="points-highlight text-accent-red font-bold">XX</span> points available!
+        <div id="pointsMessage" class="points-available text-lg text-white hidden">
+          You have <span class="points-highlight text-accent-red font-bold">100</span> points available!
           <button class="btn btn-outline ml-2">REDEEM</button>
         </div>
         <div class="stacked-actions flex flex-col gap-4">
@@ -147,7 +147,7 @@
           <a href="select-movie.html" class="btn btn-outline w-full uppercase font-bold">ADD TICKETS</a>
         </div>
       </div>
-    </div>
+
     
     <!-- Bottom Button Row -->
     <div class="mt-auto w-full flex justify-between px-4">
@@ -213,5 +213,18 @@
       document.getElementById("total").innerText = `$${total.toFixed(2)}`;
     }
   </script>
+  <script>
+    function handleLogin() {
+      const username = document.getElementById('usernameInput').value.trim();
+      const password = document.getElementById('passwordInput').value.trim();
+  
+      if (username && password) {
+        document.getElementById('pointsMessage').classList.remove('hidden');
+      } else {
+        alert("Please enter both username and password.");
+      }
+    }
+  </script>
+
 </body>
 </html>
