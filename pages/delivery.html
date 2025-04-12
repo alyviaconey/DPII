@@ -5,6 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Movie Theatre Self-Serve - Ticket Delivery</title>
   <link rel="stylesheet" href="../styles/output.css"/>
+  <style>
+    /* Modal styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: #1e1e1e;
+      border: 1px solid #4a4a4a;
+      border-radius: 8px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    
+    .verification-code {
+      font-size: 28px;
+      letter-spacing: 8px;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body class="bg-dark text-text-primary flex flex-col items-center justify-center min-h-screen p-5">
   
@@ -49,6 +88,20 @@
     </div>
   </div>
   
+  <!-- Verification Modal -->
+  <div id="verificationModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3 class="text-xl font-bold text-white text-center">Verification Code</h3>
+      <p class="text-center text-white mt-2">A code has been sent to your device.</p>
+      <p class="text-center text-white">If the code matches what you see below, click OK.</p>
+      <div class="verification-code text-white">123456</div>
+      <div class="modal-buttons">
+        <button id="resendBtn" class="btn btn-outline text-white">Resend</button>
+        <button id="confirmBtn" class="btn btn-primary">OK</button>
+      </div>
+    </div>
+  </div>
+  
   <!-- Ticket Delivery Screen -->
   <div class="screen bg-card rounded-lg shadow-xl border border-gray-700 w-11/12 max-w-5xl min-h-[600px] p-5 relative flex flex-col mx-auto">
     <!-- Top-right CANCEL Button -->
@@ -59,7 +112,8 @@
       </svg>
     </button>
 
-    <button onclick="clearCart(); prevPage('select-options.html')" class="absolute top-4 left-4 btn btn-outline text-white w-32 h-14 text-center flex items-center justify-center text-base" style="position: absolute; left: 16px; top: 16px; margin: 0;">
+    <!-- Back button in top-left -->
+    <button onclick="clearCart(); prevPage('select-options.html')" class="absolute top-4 left-4 btn btn-outline text-white w-32 h-14 flex items-center justify-center text-base">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
@@ -80,25 +134,25 @@
       <!-- SMS Option -->
       <div class="delivery-option flex flex-col md:flex-row items-center gap-4 p-4 ">
          <div class="flex items-center gap-2">
-             <input type="checkbox" class="delivery-checkbox form-checkbox w-5 h-5" onchange="this.closest('.delivery-option').querySelector('.delivery-input').disabled = !this.checked">
+             <input type="checkbox" id="smsCheckbox" class="delivery-checkbox form-checkbox w-5 h-5" onchange="toggleDeliveryOption(this, 'sms')">
              <span class="text-lg text-dark font-bold">SMS</span>
          </div>
          <div class="flex-1">
-             <input type="text" placeholder="(123) 456-7890" class="delivery-input w-full bg-white p-2 border border-gray-400 rounded" disabled>
+             <input type="text" id="smsInput" placeholder="(123) 456-7890" class="delivery-input w-full bg-white p-2 border border-gray-400 rounded" disabled>
          </div>
-         <button class="delivery-confirm btn btn-primary">OK</button>
+         <button class="delivery-confirm btn btn-primary" onclick="showVerification('sms')">OK</button>
       </div>
       
       <!-- Email Option -->
       <div class="delivery-option flex flex-col md:flex-row items-center gap-4 p-4">
          <div class="flex items-center gap-2">
-             <input type="checkbox" class="delivery-checkbox form-checkbox w-5 h-5" onchange="this.closest('.delivery-option').querySelector('.delivery-input').disabled = !this.checked">
+             <input type="checkbox" id="emailCheckbox" class="delivery-checkbox form-checkbox w-5 h-5" onchange="toggleDeliveryOption(this, 'email')">
              <span class="text-lg text-dark font-bold">Email</span>
          </div>
          <div class="flex-1">
-             <input type="text" placeholder="youremail@example.com" class="delivery-input w-full p-2 border bg-white border-gray-400 rounded" disabled>
+             <input type="text" id="emailInput" placeholder="youremail@example.com" class="delivery-input w-full p-2 border bg-white border-gray-400 rounded" disabled>
          </div>
-         <button class="delivery-confirm btn btn-primary">OK</button>
+         <button class="delivery-confirm btn btn-primary" onclick="showVerification('email')">OK</button>
       </div>
       
       <!-- Download Option -->
@@ -112,15 +166,9 @@
       </div>
     </div>
     
-    <!-- Main CTA: Proceed to Checkout -->
-     <!-- Uncomment the following line to enable the 'Prodeed to Checkout' button -->
-    <!-- <div class="my-6 text-center">
-      <a href="payment-method.html" class="btn btn-primary text-white text-xl py-3 px-6">Proceed to Checkout</a>
-    </div> -->
-    
     <!-- Bottom Button Row -->
     <div class="mt-auto w-full flex justify-between px-4">
-      <a href="payment-method.html" class="btn btn-primary text-white w-32 h-14 flex items-center justify-center text-base" style="position: absolute; right: 16px; bottom: 16px; margin: 0;">
+      <a href="payment-method.html" id="nextButton" class="btn btn-primary text-white w-32 h-14 flex items-center justify-center text-base opacity-50 cursor-not-allowed" style="position: absolute; right: 16px; bottom: 16px; margin: 0;">
          NEXT
          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none"
               viewBox="0 0 24 24" stroke="currentColor">
@@ -130,7 +178,106 @@
       </a>
     </div>
   </div>
-  
-  <script src="../js/scripts.js"></script>
+
+  <script>
+    // Global variables
+    let isVerified = false;
+    let deliveryMethod = null;
+    
+    // Toggle cart panel
+    function toggleCart() {
+      const cartPanel = document.getElementById('cartPanel');
+      if (cartPanel.classList.contains('-translate-x-full')) {
+        cartPanel.classList.remove('-translate-x-full');
+      } else {
+        cartPanel.classList.add('-translate-x-full');
+      }
+    }
+    
+    // Clear cart functionality
+    function clearCart() {
+      // Implement cart clearing functionality here
+      document.querySelector('.cart-badge').textContent = '0';
+      document.querySelector('.cart-total span:last-child').textContent = '$0.00';
+      document.querySelector('.cart-items').innerHTML = '';
+    }
+    
+    // Navigate to previous page
+    function prevPage(page) {
+      location.href = page;
+    }
+    
+    // Toggle delivery option checkbox
+    function toggleDeliveryOption(checkbox, type) {
+      // Uncheck the other option
+      if (type === 'sms' && checkbox.checked) {
+        document.getElementById('emailCheckbox').checked = false;
+        document.getElementById('emailInput').disabled = true;
+      } else if (type === 'email' && checkbox.checked) {
+        document.getElementById('smsCheckbox').checked = false;
+        document.getElementById('smsInput').disabled = true;
+      }
+      
+      // Enable/disable input field
+      const input = type === 'sms' ? document.getElementById('smsInput') : document.getElementById('emailInput');
+      input.disabled = !checkbox.checked;
+      
+      // Set delivery method
+      deliveryMethod = checkbox.checked ? type : null;
+    }
+    
+    // Generate random 6-digit code
+    function generateCode() {
+      return Math.floor(100000 + Math.random() * 900000);
+    }
+    
+    // Show verification modal
+    function showVerification(type) {
+      const input = type === 'sms' ? document.getElementById('smsInput') : document.getElementById('emailInput');
+      const value = input.value.trim();
+      
+      // Validate input
+      if (!value) {
+        alert("Please enter your " + (type === 'sms' ? 'phone number' : 'email address'));
+        return;
+      }
+      
+      // Generate and display verification code
+      const code = generateCode();
+      document.querySelector('.verification-code').textContent = code;
+      
+      // Show modal
+      document.getElementById('verificationModal').style.display = 'flex';
+    }
+    
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Disable next button initially
+      const nextButton = document.getElementById('nextButton');
+      nextButton.addEventListener('click', function(e) {
+        if (!isVerified) {
+          e.preventDefault();
+          alert("Please verify your delivery method first");
+        }
+      });
+      
+      // Handle confirmation in verification modal
+      document.getElementById('confirmBtn').addEventListener('click', function() {
+        // Hide modal
+        document.getElementById('verificationModal').style.display = 'none';
+        
+        // Enable next button
+        isVerified = true;
+        nextButton.classList.remove('opacity-50', 'cursor-not-allowed');
+      });
+      
+      // Handle resend button
+      document.getElementById('resendBtn').addEventListener('click', function() {
+        const code = generateCode();
+        document.querySelector('.verification-code').textContent = code;
+        alert("New verification code sent to your " + (deliveryMethod === 'sms' ? 'phone' : 'email'));
+      });
+    });
+  </script>
 </body>
 </html>
