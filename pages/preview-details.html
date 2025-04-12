@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Theatre Self-Serve - Movie Details</title>
+  <link rel="stylesheet" href="../styles/output.css" />
+  <style>
+    #trailerButton:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body class="bg-dark text-text-primary flex flex-col items-center justify-center min-h-screen p-5">
+  <!-- Cart Icon -->
+  <div class="fixed top-5 left-5 z-[1100] cursor-pointer" onclick="toggleCart()">
+    <div class="relative inline-block">
+      <?xml version="1.0" encoding="UTF-8"?>
+      <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+           xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+        <path d="M19.5 22C20.3284 22 21 21.3284 21 20.5C21 19.6716 20.3284 19 19.5 19C18.6716 19 18 19.6716 18 20.5C18 21.3284 18.6716 22 19.5 22Z" fill="#000000" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M9.5 22C10.3284 22 11 21.3284 11 20.5C11 19.6716 10.3284 19 9.5 19C8.67157 19 8 19.6716 8 20.5C8 21.3284 8.67157 22 9.5 22Z" fill="#000000" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M16.5 4H22L20 15H15.5M16.5 4L15.5 15M16.5 4H10.75M15.5 15H11.5M10.75 4H5L7 15H11.5M10.75 4L11.5 15" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M5 4C4.83333 3.33333 4 2 2 2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M20 15H7H5.23077C3.44646 15 2.5 15.7812 2.5 17C2.5 18.2188 3.44646 19 5.23077 19H19.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span class="cart-badge absolute -top-2 -left-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white text-xs font-medium shadow-md ring-0 ring-white">
+        0
+      </span>
+    </div>
+  </div>
+
+  <!-- Cart Panel -->
+  <div id="cartPanel" class="fixed top-0 left-0 z-[1000] w-72 h-screen bg-black pt-8 shadow-lg transition-transform transform -translate-x-full">
+    <div class="p-4 border-b flex justify-between items-center">
+      <h3 class="text-lg font-semibold text-white">Your Cart</h3>
+      <button onclick="toggleCart()" class="text-2xl text-white">&times;</button>
+    </div>
+    <div class="cart-items p-4 overflow-y-auto" style="height: calc(100% - 150px);">
+      <!-- Cart items will be dynamically added here -->
+    </div>
+    <div class="p-4 border-t">
+      <div class="cart-total flex justify-between font-bold text-white mb-4">
+        <span>Total:</span>
+        <span>$0.00</span>
+      </div>
+      <a href="order-summary.html" class="btn btn-primary w-full">Checkout</a>
+    </div>
+  </div>
+
+  <!-- Movie Details Screen -->
+  <div class="screen bg-card rounded-lg shadow-xl border border-gray-700 w-11/12 max-w-5xl min-h-[600px] p-5 relative flex flex-col mx-auto">
+    <!-- Header with Logo -->
+    <header class="w-full flex justify-center p-4">
+      <div class="logo-space font-bold text-xl text-accent-red">
+        <img src="assets/images/svgs/theater-logo.svg" alt="Theatre Name & Logo" class="h-40 mx-auto">
+      </div>
+    </header>
+    
+    <!-- Cancel Button (top-right) -->
+    <button onclick="location.href='../index.html'; clearCart();" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 flex items-center justify-center text-base">
+      CANCEL
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <!-- Top Row: Movie Info & Poster -->
+    <div class="flex flex-col md:flex-row gap-6 mt-4">
+      <!-- Movie Info -->
+      <div class="movie-info flex-1 text-center md:text-left space-y-2">
+        <h3 class="movie-title text-3xl font-bold text-white">Movie Title</h3>
+        <p class="movie-length text-sm text-gray-300">Length: 2h 10m</p>
+        <p class="movie-genre text-sm text-gray-300">Genre: Action / Drama</p>
+        <p class="movie-rating text-sm text-gray-300">Rated: PG-13</p>
+        <p class="movie-synopsis text-sm text-gray-200">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
+        </p>
+      </div>
+      <!-- Movie Poster -->
+      <div class="movie-poster-large flex justify-center">
+        <img src=".assets/images/movies/movie1.png" alt="Movie Poster" class="poster-image-large rounded-lg shadow-lg object-cover w-full max-w-xs">
+      </div>
+    </div>
+    
+    <!-- Trailer Section -->
+    <div class="trailer-section w-full mt-8 relative">
+      <!-- Inline Trailer Video, initially hidden -->
+      <video id="trailerVideo" controls class="w-full rounded-lg shadow-md hidden">
+        <source src=".assets/videos/generic-trailer.mp4" type="video/mp4">
+        Your browser does not support the video element.
+      </video>
+      <!-- Overlay Play Button -->
+      <button id="trailerButton" class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-white text-2xl font-bold animate-pulse" onclick="showTrailer()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mb-2" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M4.5 3.5L16 10L4.5 16.5V3.5Z"/>
+        </svg>
+        Watch Trailer
+      </button>
+    </div>
+    
+    <!-- Bottom Button Row -->
+    <div class="mt-auto w-full flex justify-between px-4">
+      <button onclick="history.back()" class="btn btn-outline text-white w-32 h-14 flex items-center justify-center text-base">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        BACK
+      </button>
+      <a href="#" class="btn btn-primary text-white w-32 h-14 items-center justify-center text-base hidden">
+        NEXT
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/scripts.js"></script>
+  <script>
+    // When the "Watch Trailer" button is clicked, show the video
+    function showTrailer() {
+      const video = document.getElementById('trailerVideo');
+      const button = document.getElementById('trailerButton');
+      video.classList.remove('hidden');
+      button.classList.add('hidden');
+      video.play();
+    }
+  </script>
+</body>
+</html>
