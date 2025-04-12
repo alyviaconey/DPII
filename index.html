@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Movie Theatre Self-Serve</title>
@@ -29,7 +30,7 @@
     <!-- Header with Logo -->
     <header class="w-full flex justify-center p-4">
       <div class="logo-space font-bold text-xl text-accent-red">
-        <img src="/assets/images/svgs/theater-logo.svg" alt="Theatre Name & Logo" class="h-40 mx-auto" />
+        <img src="/DPII/assets/images/svgs/theater-logo.svg" alt="Theatre Name & Logo" class="h-40 mx-auto" />
       </div>
     </header>
 
@@ -37,11 +38,11 @@
     <h1 class="mt-4 text-4xl font-bold text-white">SELF-SERVE</h1>
 
     <!-- Start Circle -->
-    <a onclick="lastPage = '../index.html'" href="pages/select-options.html" class="no-underline">
+    <a onclick="localStorage.setItem('lastPage', 'index.html')" href="pages/select-options.html" class="no-underline">
       <div class="flex flex-col items-center justify-center w-[180px] h-[180px] rounded-full border-2 border-gray-800 mx-auto my-12 cursor-pointer shadow-lg">
         <div class="text-2xl font-semibold mb-5 transition-transform duration-200 hover:scale-105 hover:text-white">START</div>
         <div class="w-12 h-12">
-          <img class="transition-transform duration-200 hover:scale-105" src="/assets/images/svgs/pointer.svg" alt="Pointer" />
+          <img class="transition-transform duration-200 hover:scale-105" src="/DPII/assets/images/svgs/pointer.svg" alt="Pointer" />
         </div>
       </div>
     </a>
@@ -49,23 +50,23 @@
     <!-- Payment Options -->
     <div class="flex justify-center flex-wrap gap-6 mt-10">
         <div class="flex flex-col items-center">
-          <img src="./assets/images/svgs/visa.svg" alt="Visa" class="h-10 aspect-[3/2] object-contain opacity-90 hover:opacity-100 transition" />
+          <img src="/DPII/assets/images/svgs/visa.svg" alt="Visa" class="h-10 aspect-[3/2] object-contain opacity-90 hover:opacity-100 transition" />
           <span class="text-xs mt-1">Visa</span>
         </div>
         <div class="flex flex-col items-center">
-          <img src="./assets/images/svgs/mastercard.svg" alt="Mastercard" class="h-10 aspect-[3/2] object-contain opacity-90 hover:opacity-100 transition" />
+          <img src="/DPII/assets/images/svgs/mastercard.svg" alt="Mastercard" class="h-10 aspect-[3/2] object-contain opacity-90 hover:opacity-100 transition" />
           <span class="text-xs mt-1">Mastercard</span>
         </div>
         <div class="flex flex-col items-center">
-          <img src="./assets/images/svgs/amex.svg" alt="Amex" class="h-10 aspect-[3/2] object-contain opacity-90 hover:opacity-100 transition" />
+          <img src="/DPII/assets/images/svgs/amex.svg" alt="Amex" class="h-10 aspect-[3/2] object-contain opacity-90 hover:opacity-100 transition" />
           <span class="text-xs mt-1">Amex</span>
         </div>
         <div class="flex flex-col items-center">
-          <img src="./assets/images/svgs/applepay.svg" alt="Apple Pay" class="h-10 aspect-[4/3] object-contain opacity-90 hover:opacity-100 transition dark:invert" />
+          <img src="/DPII/assets/images/svgs/applepay.svg" alt="Apple Pay" class="h-10 aspect-[4/3] object-contain opacity-90 hover:opacity-100 transition dark:invert" />
           <span class="text-xs mt-1">Apple Pay</span>
         </div>
         <div class="flex flex-col items-center">
-          <img src="./assets/images/svgs/googlepay.svg" alt="Google Pay" class="h-10 aspect-[3/2] object-contain opacity-90 hover:opacity-100 transition" />
+          <img src="/DPII/assets/images/svgs/googlepay.svg" alt="Google Pay" class="h-10 aspect-[3/2] object-contain opacity-90 hover:opacity-100 transition" />
           <span class="text-xs mt-1">Google Pay</span>
         </div>
       </div>
@@ -77,6 +78,9 @@
     window.onload = () => {
       clearCart();
     }
+  </script>
+</body>
+</html>
   </script>
 </body>
 </html>

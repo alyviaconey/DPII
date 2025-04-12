@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Movie Theatre Self-Serve - Payment Method</title>
-  <link rel="stylesheet" href="../styles/output.css" />
+  <link rel="stylesheet" href="/DPII/styles/output.css" />
 </head>
 <body class="bg-dark text-text-primary flex flex-col items-center justify-center min-h-screen p-5">
   <!-- Cart Icon -->
@@ -46,7 +47,7 @@
   <!-- Payment Method Selection Screen -->
   <div class="screen bg-card rounded-lg shadow-xl border border-gray-700 w-11/12 max-w-5xl min-h-[600px] p-5 relative flex flex-col mx-auto">
     <!-- Top-right CANCEL Button -->
-    <button onclick="location.href='../index.html'; clearCart()" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 flex items-center justify-center text-base">
+    <button onclick="location.href='index.html'; clearCart()" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 flex items-center justify-center text-base">
       CANCEL
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -56,7 +57,7 @@
     <!-- Header with Logo -->
     <header class="w-full flex justify-center p-4">
       <div class="logo-space font-bold text-xl text-accent-red">
-        <img src="/assets/images/svgs/theater-logo.svg" alt="Theatre Name & Logo" class="h-40 mx-auto">
+        <img src="/DPII/assets/images/svgs/theater-logo.svg" alt="Theatre Name & Logo" class="h-40 mx-auto">
       </div>
     </header>
     
@@ -68,12 +69,12 @@
       <div class="flex flex-col items-end gap-6">
         <!-- Payment Method: TAP -->
         <a href="payment.html" class="payment-method flex flex-col items-center justify-center bg-gray-800 p-4 border border-gray-500 rounded transition-all duration-200 hover:shadow-xl" style="width: 10rem; height: 10rem;">
-          <img src="/assets/images/svgs/tap.svg" alt="Tap" class="w-16 h-16 mb-3">
+          <img src="/DPII/assets/images/svgs/tap.svg" alt="Tap" class="w-16 h-16 mb-3">
           <span class="text-lg font-bold">TAP</span>
         </a>
         <!-- Payment Method: APPLE PAY -->
         <a href="payment.html" class="payment-method flex flex-col items-center justify-center bg-gray-800 p-4 border border-gray-500 rounded transition-all duration-200 hover:shadow-xl" style="width: 10rem; height: 10rem;">
-          <img src="/assets/images/svgs/applepay.svg" alt="Apple Pay" class="w-16 h-16 mb-3">
+          <img src="/DPII/assets/images/svgs/applepay.svg" alt="Apple Pay" class="w-16 h-16 mb-3">
           <span class="text-lg font-bold">APPLE PAY</span>
         </a>
       </div>
@@ -81,7 +82,7 @@
       <div class="flex flex-col items-start gap-6">
         <!-- Payment Method: GOOGLE PAY -->
         <a href="payment.html" class="payment-method flex flex-col items-center justify-center bg-gray-800 p-4 border border-gray-500 rounded transition-all duration-200 hover:shadow-xl" style="width: 10rem; height: 10rem;">
-          <img src="/assets/images/svgs/googlepay.svg" alt="Google Pay" class="w-16 h-16 mb-3">
+          <img src="/DPII/assets/images/svgs/googlepay.svg" alt="Google Pay" class="w-16 h-16 mb-3">
           <span class="text-lg font-bold">GOOGLE PAY</span>
         </a>
         <!-- Payment Method: MANUAL CARD ENTRY -->
@@ -124,6 +125,6 @@
     </div>
   </div>
   
-  <script src="../js/scripts.js"></script>
+  <script src="/DPII/js/scripts.js"></script>
 </body>
 </html>

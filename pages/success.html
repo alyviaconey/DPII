@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Movie Theatre Self-Serve - Success</title>
   <!-- Redirect to home page after 30 seconds -->
-  <meta http-equiv="refresh" content="30; URL=../index.html" />
-  <link rel="stylesheet" href="../styles/output.css" />
+  <meta http-equiv="refresh" content="30; URL=index.html" />
+  <link rel="stylesheet" href="/DPII/styles/output.css" />
 </head>
 <body class="bg-dark text-text-primary flex flex-col items-center justify-center min-h-screen p-5">
   <!-- Cart Icon -->
@@ -53,7 +54,7 @@
   <!-- Success Screen -->
   <div class="screen bg-card rounded-lg shadow-xl border border-gray-700 w-11/12 max-w-5xl min-h-[600px] p-5 relative flex flex-col mx-auto text-center">
     <!-- Top-right CANCEL Button -->
-    <button onclick="location.href='../index.html'; clearCart()" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 hidden items-center justify-center text-base">
+    <button onclick="location.href='index.html'; clearCart()" class="absolute top-4 right-4 btn btn-error text-white w-32 h-14 hidden items-center justify-center text-base">
       CANCEL
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -62,7 +63,7 @@
     <!-- Header with Logo -->
     <header class="w-full flex justify-center p-4">
       <div class="logo-space font-bold text-xl text-accent-red">
-        <img src="/assets/images/svgs/theater-logo.svg" alt="Theatre Logo" class="h-40 mx-auto">
+        <img src="/DPII/assets/images/svgs/theater-logo.svg" alt="Theatre Logo" class="h-40 mx-auto">
       </div>
     </header>
 
@@ -73,7 +74,7 @@
     
     <!-- Timer Section -->
     <div class="timer-container mt-8 flex flex-col items-center">
-      <img src="/assets/images/success-clock.png" alt="Timer" class="w-24 mb-3">
+      <img src="/DPII/assets/images/success-clock.png" alt="Timer" class="w-24 mb-3">
       <div class="timer-text text-3xl font-bold text-white">00:10:15</div>
       <div class="timer-subtitle text-lg text-gray-400 mt-1">before movie</div>
     </div>
@@ -92,7 +93,7 @@
        </svg>
         CANCEL BOOKING
       </a>
-      <a href="../index.html" class="btn btn-primary text-white w-32 h-14 items-center justify-center text-base flex">
+      <a href="index.html" class="btn btn-primary text-white w-32 h-14 items-center justify-center text-base flex">
         EXIT
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" 
              viewBox="0 0 24 24" stroke="currentColor">
@@ -115,6 +116,6 @@
     }
   </script>
 
-  <script src="../js/scripts.js"></script>
+  <script src="/DPII/js/scripts.js"></script>
 </body>
 </html>

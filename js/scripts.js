@@ -24,23 +24,18 @@ function validateFood(){
 }
 
 function prevPage(current_location){
-    // this is to handle where different paths can merge (i.e. checkout pages for food or tickets), also when
-    // href attribute is not availible directly from html (i.e. using a button or something)
     console.log(window.location.href);
-    // window.location.href = lastPage;
-    // lastPage = "../index.html";
     switch (current_location){
         case "select-options.html":
-            window.location.href = "../index.html";
+            window.location.href = "/DPII/index.html"; // Absolute path
             break;
         case "movie-details.html":
-            window.location.href = "select-movie.html";
+            window.location.href = "pages/select-movie.html"; // Keep the subpaths
             break;
         case "select-movie.html":
-            window.location.href = "select-options.html"
+            window.location.href = "pages/select-options.html"
             break;
         case "order-summary.html":
-            // this is where the differentiation happens
             window.location.href = localStorage.getItem('lastPage');
             break;
     }
@@ -440,3 +435,8 @@ function toggleSeatSelection(seat, id) {
     localStorage.setItem('seats', JSON.stringify(arr));
     document.querySelector('.seat-counter').textContent = `${selectedSeats}/${t['adult']+t['child']+t['senior']}`;
   }
+    
+    // // Update selected seats counter (counts all elements with bg-pink-300)
+    const selectedSeats = document.querySelectorAll('.bg-pink-300').length;
+    document.querySelector('.seat-counter').textContent = `${selectedSeats}/${t['adult']+t['child']+t['senior']}`;
+  
