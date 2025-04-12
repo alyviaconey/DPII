@@ -5,7 +5,7 @@ let selected = 0;
 
  
 function validateSeats(){
-    t = JSON.parse(localStorage.getItem('cartItems'));
+    t = JSON.parse(localStorage.getItem('tickets'));
     if(selected < (t['adult']+t['child']+t['senior'])) alert(`Select ${(t['adult']+t['child']+t['senior']) - selected} more seats`)
     else {
         localStorage.setItem('lastPage', "seat-selection.html");
@@ -85,52 +85,54 @@ function updateCartItems() {
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const cartItemsContainer = document.querySelector('.cart-items');
     if (!cartItemsContainer) return;
-
+    
     cartItemsContainer.innerHTML = '';
+    
     let total = 0;
 
     let tickets = JSON.parse(localStorage.getItem('tickets')) || {};
     const ticketPrices = { adult: 12.99, child: 8.99, senior: 10.99 };
 
-    // Add food items
+    
     cartItems.forEach((item, index) => {
         const itemElement = document.createElement('div');
         itemElement.className = 'cart-item flex justify-between items-center p-2 border-b border-gray-600';
-
+        
         const itemDetails = document.createElement('div');
         itemDetails.className = 'cart-item-details flex-1 text-white';
-
+        
         const itemTitle = document.createElement('div');
         itemTitle.className = 'cart-item-title font-bold';
         itemTitle.textContent = item.name;
-
+        
         const itemSubtitle = document.createElement('div');
         itemSubtitle.className = 'cart-item-subtitle text-sm text-gray-300';
         itemSubtitle.textContent = item.size;
-
+        
         itemDetails.appendChild(itemTitle);
         itemDetails.appendChild(itemSubtitle);
-
+        
         const itemPrice = document.createElement('div');
         itemPrice.className = 'cart-item-price font-bold text-white';
         itemPrice.textContent = `$${item.price.toFixed(2)}`;
-
+       
+        itemElement.appendChild(itemDetails);
+        itemElement.appendChild(itemPrice);
+        
         const removeBtn = document.createElement('button');
         removeBtn.className = 'text-red-400 hover:text-red-600 text-xs ml-2';
         removeBtn.textContent = '✕';
         removeBtn.title = 'Remove';
         removeBtn.onclick = () => removeCartItem(index);
-
-        itemElement.appendChild(itemDetails);
-        itemElement.appendChild(itemPrice);
         itemElement.appendChild(removeBtn);
 
+        
         cartItemsContainer.appendChild(itemElement);
+        
         total += item.price;
     });
 
-    // Add ticket items
-    Object.entries(ticketPrices).forEach(([type, price]) => {
+        Object.entries(ticketPrices).forEach(([type, price]) => {
         const quantity = tickets[type] || 0;
         if (quantity > 0) {
             const itemElement = document.createElement('div');
@@ -141,8 +143,35 @@ function updateCartItems() {
 
             const itemTitle = document.createElement('div');
             itemTitle.className = 'cart-item-title font-bold';
-            itemTitle.text
+            itemTitle.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Ticket`;
 
+            const itemSubtitle = document.createElement('div');
+            itemSubtitle.className = 'cart-item-subtitle text-sm text-gray-300';
+            itemSubtitle.textContent = `Quantity: ${quantity}`;
+
+            itemDetails.appendChild(itemTitle);
+            itemDetails.appendChild(itemSubtitle);
+
+            const itemPrice = document.createElement('div');
+            itemPrice.className = 'cart-item-price font-bold text-white';
+            itemPrice.textContent = `$${(quantity * price).toFixed(2)}`;
+
+            itemElement.appendChild(itemDetails);
+            itemElement.appendChild(itemPrice);
+            cartItemsContainer.appendChild(itemElement);
+
+            total += quantity * price;
+        }
+    });
+
+    // Update total
+    const cartTotal = document.querySelector('.cart-total span:last-child');
+    if (cartTotal) {
+        cartTotal.textContent = `$${total.toFixed(2)}`;
+    }
+
+    console.log(cartItems);
+}
 
 function removeCartItem(index) {
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -451,5 +480,3 @@ function toggleSeatSelection(seat) {
     const selectedSeats = document.querySelectorAll('.bg-pink-300').length;
     document.querySelector('.seat-counter').textContent = `${selectedSeats}/${t['adult']+t['child']+t['senior']}`;
   }
-
-
