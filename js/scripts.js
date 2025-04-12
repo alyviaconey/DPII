@@ -5,7 +5,7 @@ let selected = 0;
 
  
 function validateSeats(){
-    t = JSON.parse(localStorage.getItem('tickets'));
+    t = JSON.parse(localStorage.getItem('cartItems'));
     if(selected < (t['adult']+t['child']+t['senior'])) alert(`Select ${(t['adult']+t['child']+t['senior']) - selected} more seats`)
     else {
         localStorage.setItem('lastPage', "seat-selection.html");
