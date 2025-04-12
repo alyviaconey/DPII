@@ -115,16 +115,6 @@ function updateCartItems() {
         itemElement.appendChild(itemDetails);
         itemElement.appendChild(itemPrice);
         
-        // Add remove button
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'text-red-400 hover:text-red-600 text-xs ml-2';
-        removeBtn.textContent = '✕';
-        removeBtn.title = 'Remove';
-        removeBtn.onclick = () => removeCartItem(index);
-        
-        itemElement.appendChild(removeBtn);
-
-        
         cartItemsContainer.appendChild(itemElement);
         
         total += item.price;
@@ -138,15 +128,6 @@ function updateCartItems() {
 
     console.log(cartItems);
 }
-
-function removeCartItem(index) {
-    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    cartItems.splice(index, 1); // remove item at index
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    updateCartBadge();
-    updateCartItems();
-}
-
 
 function clearCart() {
     // Remove cart items from localStorage
