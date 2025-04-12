@@ -3,32 +3,28 @@ let cartItems = [];
 let cartCount = 0;
 let selected = 0;
 
- 
-function validateSeats(){
+function validateSeats() {
     t = JSON.parse(localStorage.getItem('tickets'));
-    if(selected < (t['adult']+t['child']+t['senior'])) alert(Select ${(t['adult']+t['child']+t['senior']) - selected} more seats)
-    else {
+    if (selected < (t['adult'] + t['child'] + t['senior'])) {
+        alert(`Select ${(t['adult'] + t['child'] + t['senior']) - selected} more seats`);
+    } else {
         localStorage.setItem('lastPage', "seat-selection.html");
         window.location.href = 'order-summary.html';
     }
 }
 
-function validateFood(){
+function validateFood() {
     food = localStorage.getItem('cartItems');
-    if(food == null) alert("Add at least 1 item");
-    else{
+    if (food == null) alert("Add at least 1 item");
+    else {
         localStorage.setItem('lastPage', "food.html");
         window.location.href = 'order-summary.html';
     }
 }
 
-function prevPage(current_location){
-    // this is to handle where different paths can merge (i.e. checkout pages for food or tickets), also when
-    // href attribute is not availible directly from html (i.e. using a button or something)
+function prevPage(current_location) {
     console.log(window.location.href);
-    // window.location.href = lastPage;
-    // lastPage = "../index.html";
-    switch (current_location){
+    switch (current_location) {
         case "select-options.html":
             window.location.href = "../index.html";
             break;
@@ -36,15 +32,13 @@ function prevPage(current_location){
             window.location.href = "select-movie.html";
             break;
         case "select-movie.html":
-            window.location.href = "select-options.html"
+            window.location.href = "select-options.html";
             break;
         case "order-summary.html":
-            // this is where the differentiation happens
             window.location.href = localStorage.getItem('lastPage');
             break;
     }
 }
-
 
 function toggleCart() {
     const cartPanel = document.getElementById('cartPanel');
@@ -52,95 +46,82 @@ function toggleCart() {
 }
 
 function addToCart(name, size, price) {
-    // Store cart in localStorage for persistence between pages
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    
+
     cartItems.push({
         name: name,
         size: size,
         price: price
     });
-    
+
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     updateCartBadge();
     updateCartItems();
-    
-    // Show a small notification
-    alert(Added ${size} ${name} to cart!);
+
+    alert(`Added ${size} ${name} to cart!`);
 }
 
 function updateCartBadge() {
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const cartBadge = document.querySelector('.cart-badge');
     cartBadge.textContent = cartItems.length;
-    
-    if (cartItems.length > 0) {
-        cartBadge.style.display = 'flex';
-    } else {
-        cartBadge.style.display = 'none';
-    }
+
+    cartBadge.style.display = cartItems.length > 0 ? 'flex' : 'none';
 }
 
 function updateCartItems() {
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const cartItemsContainer = document.querySelector('.cart-items');
     if (!cartItemsContainer) return;
-    
+
     cartItemsContainer.innerHTML = '';
-    
     let total = 0;
-    
-    cartItems.forEach((item, index) => {
+
+    cartItems.forEach((item) => {
         const itemElement = document.createElement('div');
         itemElement.className = 'cart-item flex justify-between items-center p-2 border-b border-gray-600';
-        
+
         const itemDetails = document.createElement('div');
         itemDetails.className = 'cart-item-details flex-1 text-white';
-        
+
         const itemTitle = document.createElement('div');
         itemTitle.className = 'cart-item-title font-bold';
         itemTitle.textContent = item.name;
-        
+
         const itemSubtitle = document.createElement('div');
         itemSubtitle.className = 'cart-item-subtitle text-sm text-gray-300';
         itemSubtitle.textContent = item.size;
-        
+
         itemDetails.appendChild(itemTitle);
         itemDetails.appendChild(itemSubtitle);
-        
+
         const itemPrice = document.createElement('div');
         itemPrice.className = 'cart-item-price font-bold text-white';
-        itemPrice.textContent = $${item.price.toFixed(2)};
-        
+        itemPrice.textContent = `$${item.price.toFixed(2)}`;
+
         itemElement.appendChild(itemDetails);
         itemElement.appendChild(itemPrice);
-        
+
         cartItemsContainer.appendChild(itemElement);
-        
         total += item.price;
     });
-    
-    // Update total
+
     const cartTotal = document.querySelector('.cart-total span:last-child');
     if (cartTotal) {
-        cartTotal.textContent = $${total.toFixed(2)};
+        cartTotal.textContent = `$${total.toFixed(2)}`;
     }
 
     console.log(cartItems);
 }
 
 function clearCart() {
-    // Remove cart items from localStorage
     localStorage.removeItem('cartItems');
     localStorage.removeItem('tickets');
     localStorage.removeItem('movie');
-    // Update the badge and cart items container
     updateCartBadge();
     updateCartItems();
 }
 
-
-// Ticket selection functionality
 let tickets = {
     adult: 0,
     child: 0,
@@ -149,7 +130,7 @@ let tickets = {
 
 function incrementTicket(type) {
     tickets[type]++;
-    const ticketElement = document.getElementById(${type}Tickets);
+    const ticketElement = document.getElementById(`${type}Tickets`);
     if (ticketElement) {
         ticketElement.textContent = tickets[type];
         updateTicketTotal();
@@ -159,7 +140,7 @@ function incrementTicket(type) {
 function decrementTicket(type) {
     if (tickets[type] > 0) {
         tickets[type]--;
-        const ticketElement = document.getElementById(${type}Tickets);
+        const ticketElement = document.getElementById(`${type}Tickets`);
         if (ticketElement) {
             ticketElement.textContent = tickets[type];
             updateTicketTotal();
@@ -168,31 +149,30 @@ function decrementTicket(type) {
 }
 
 function updateTicketTotal() {
-    // Simple calculation for demonstration
     const adultPrice = 12.99;
     const childPrice = 8.99;
     const seniorPrice = 10.99;
-    
-    const total = 
-        (tickets.adult * adultPrice) + 
-        (tickets.child * childPrice) + 
+
+    const total =
+        (tickets.adult * adultPrice) +
+        (tickets.child * childPrice) +
         (tickets.senior * seniorPrice);
-    
+
     const ticketTotal = document.querySelector('.ticket-total');
     if (ticketTotal) {
-        ticketTotal.textContent = TOTAL: $${total.toFixed(2)};
+        ticketTotal.textContent = `TOTAL: $${total.toFixed(2)}`;
     }
 }
 
-function saveTickets(){
+function saveTickets() {
     console.log(tickets);
-    if(tickets['adult'] + tickets['child'] + tickets['senior'] == 0) alert("Add at least 1 ticket");
-    else{ 
+    if (tickets['adult'] + tickets['child'] + tickets['senior'] == 0) {
+        alert("Add at least 1 ticket");
+    } else {
         localStorage.setItem('tickets', JSON.stringify(tickets));
-        window.location.href = "seat-selection.html"
+        window.location.href = "seat-selection.html";
     }
 }
-
 
 // Movie data array
 const movies = [
@@ -334,19 +314,18 @@ const movies = [
     }
 ];
 
-
 function renderMovies() {
     const moviesGrid = document.querySelector(".movies-grid");
     if (!moviesGrid) return;
-    
-    moviesGrid.innerHTML = ""; // Clear existing content
+
+    moviesGrid.innerHTML = "";
     const detailPage = window.location.href.includes('movie-preview.html') ? 'preview-details.html' : 'movie-details.html';
-    
+
     movies.forEach(movie => {
         const movieCard = document.createElement("div");
         movieCard.classList.add("movie-item");
-        
-        movieCard.innerHTML = 
+
+        movieCard.innerHTML = `
             <a class="movie-item group" href="${detailPage}">
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md transition-transform duration-300 group-hover:scale-105">
                     <div class="relative w-full aspect-[2/3]">
@@ -358,73 +337,57 @@ function renderMovies() {
                     <div class="movie-showtime text-gray-400 text-xs">Next Showing: XX:XX</div>
                 </div>
             </a>
-        ;
-        
+        `;
+
         movieCard.addEventListener('click', () => {
             localStorage.setItem('selectedMovie', JSON.stringify(movie));
             window.location.href = detailPage;
         });
-        
+
         moviesGrid.appendChild(movieCard);
     });
 }
 
-
-
 function getMovie() {
-    if (!(window.location.href).includes("movie-details.html")) {
-        return
-    }
-    const selectedMovie = JSON.parse(localStorage.getItem('selectedMovie'));
+    if (!(window.location.href).includes("movie-details.html")) return;
 
+    const selectedMovie = JSON.parse(localStorage.getItem('selectedMovie'));
     if (selectedMovie) {
         document.getElementsByClassName('movie-title')[0].textContent = selectedMovie.title;
-        document.getElementsByClassName('movie-length')[0].textContent = LENGTH: ${selectedMovie.length};
-        document.getElementsByClassName('movie-genre')[0].textContent = GENRE: ${selectedMovie.genre};
-        document.getElementsByClassName('movie-rating')[0].textContent = RATED: ${selectedMovie.rating};
-        document.getElementsByClassName('movie-synopsis')[0].textContent = SYNOPSIS: ${selectedMovie.synopsis};
+        document.getElementsByClassName('movie-length')[0].textContent = `LENGTH: ${selectedMovie.length}`;
+        document.getElementsByClassName('movie-genre')[0].textContent = `GENRE: ${selectedMovie.genre}`;
+        document.getElementsByClassName('movie-rating')[0].textContent = `RATED: ${selectedMovie.rating}`;
+        document.getElementsByClassName('movie-synopsis')[0].textContent = `SYNOPSIS: ${selectedMovie.synopsis}`;
+        document.getElementsByClassName('poster-image-large')[0].src = selectedMovie.poster;
 
-        // Update the poster image
-        const posterElement = document.getElementsByClassName('poster-image-large');
-        posterElement[0].src = selectedMovie.poster;
-        ;
-
-        // Update the inline trailer video source if present
         const videoElement = document.querySelector('video');
         if (videoElement) {
             videoElement.src = selectedMovie.trailer;
         }
-
     } else {
         console.error('No movie data found in localStorage.');
     }
-    
 }
 
-// Initialize when page loads
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     updateCartBadge();
     updateCartItems();
     renderMovies();
     getMovie();
 });
 
-// Add seat selection functionality
 function toggleSeatSelection(seat) {
     t = JSON.parse(localStorage.getItem('tickets'));
-    if (seat.classList.contains('bg-green-300') && selected < (t['adult']+t['child']+t['senior'])) {
-      // If seat is available, mark it as selected.
-      seat.classList.remove('bg-green-300', 'border-green-500');
-      seat.classList.add('bg-pink-300', 'border-pink-500');
-      selected++;
+    if (seat.classList.contains('bg-green-300') && selected < (t['adult'] + t['child'] + t['senior'])) {
+        seat.classList.remove('bg-green-300', 'border-green-500');
+        seat.classList.add('bg-pink-300', 'border-pink-500');
+        selected++;
     } else if (seat.classList.contains('bg-pink-300')) {
-      // If seat is selected, revert back to available.
-      seat.classList.remove('bg-pink-300', 'border-pink-500');
-      seat.classList.add('bg-green-300', 'border-green-500');
-      selected--;
+        seat.classList.remove('bg-pink-300', 'border-pink-500');
+        seat.classList.add('bg-green-300', 'border-green-500');
+        selected--;
     }
-    
-    // // Update selected seats counter (counts all elements with bg-pink-300)
+
     const selectedSeats = document.querySelectorAll('.bg-pink-300').length;
-    document.querySelector('.seat-counter').textContent = ${selectedSeats}/${t['adult']+t['child']+t['senior']};
-  }
+    document.querySelector('.seat-counter').textContent = `${selectedSeats}/${t['adult'] + t['child'] + t['senior']}`;
+}
