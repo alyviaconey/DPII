@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Theatre Self-Serve - Order Refunded</title>
+  <!-- Redirect to home page after 5 seconds -->
+  <meta http-equiv="refresh" content="5; URL=index.html" />
+  <link rel="stylesheet" href="/DPII/styles/output.css" />
+</head>
+<body class="bg-dark text-text-primary flex flex-col items-center justify-center min-h-screen p-5">
+  <!-- Cart Icon -->
+  <div class="fixed top-5 left-5 z-[1100] cursor-pointer" onclick="toggleCart()">
+    <div class="relative inline-block">
+      <?xml version="1.0" encoding="UTF-8"?>
+      <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+           xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+        <path d="M19.5 22C20.3284 22 21 21.3284 21 20.5C21 19.6716 20.3284 19 19.5 19C18.6716 19 18 19.6716 18 20.5C18 21.3284 18.6716 22 19.5 22Z" fill="#000000" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M9.5 22C10.3284 22 11 21.3284 11 20.5C11 19.6716 10.3284 19 9.5 19C8.67157 19 8 19.6716 8 20.5C8 21.3284 8.67157 22 9.5 22Z" fill="#000000" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M16.5 4H22L20 15H15.5M16.5 4L15.5 15M16.5 4H10.75M15.5 15H11.5M10.75 4H5L7 15H11.5M10.75 4L11.5 15" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M5 4C4.83333 3.33333 4 2 2 2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M20 15H7H5.23077C3.44646 15 2.5 15.7812 2.5 17C2.5 18.2188 3.44646 19 5.23077 19H19.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span class="absolute -top-2 -left-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white text-xs font-medium shadow-md ring-0 ring-white">
+        0
+      </span>
+    </div>
+  </div>
+  
+  <!-- Success (Refunded) Screen -->
+  <div class="screen bg-card rounded-lg shadow-xl border border-gray-700 w-11/12 max-w-5xl min-h-[600px] p-5 relative flex flex-col mx-auto text-center">
+    <!-- Header with Logo -->
+    <header class="w-full flex justify-center p-4">
+      <div class="logo-space font-bold text-xl text-accent-red">
+        <img src="/DPII/assets/images/svgs/theater-logo.svg" alt="Theatre Logo" class="h-40 mx-auto">
+      </div>
+    </header>
+    
+    <h2 class="text-4xl font-bold text-white mt-4">Your order has been refunded</h2>
+    <p class="text-xl text-gray-300 mt-2">Please give up to 5 business days for your refund to be processed</p>
+    <p class="text-xl text-gray-300 mt-2">You will be redirected shortly...</p>
+    
+    <!-- Timer (optional visual countdown; can be static text or animated via JS) -->
+    <div class="timer-container mt-8 flex flex-col items-center">
+      <img src="/DPII/assets/images/success-clock.png" alt="Timer" class="w-24 mb-3">
+      <div class="timer-text text-3xl font-bold text-white">00:05</div>
+      <div class="timer-subtitle text-lg text-gray-400 mt-1">until redirect</div>
+    </div>
+  </div>
+  
+  <script src="/DPII/js/scripts.js"></script>
+</body>
+</html>
