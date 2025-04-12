@@ -3,28 +3,32 @@ let cartItems = [];
 let cartCount = 0;
 let selected = 0;
 
-function validateSeats() {
-    t = JSON.parse(localStorage.getItem('tickets'));
-    if (selected < (t['adult'] + t['child'] + t['senior'])) {
-        alert(`Select ${(t['adult'] + t['child'] + t['senior']) - selected} more seats`);
-    } else {
+ 
+function validateSeats(){
+    t = JSON.parse(localStorage.getItem('cartItems'));
+    if(selected < (t['adult']+t['child']+t['senior'])) alert(`Select ${(t['adult']+t['child']+t['senior']) - selected} more seats`)
+    else {
         localStorage.setItem('lastPage', "seat-selection.html");
         window.location.href = 'order-summary.html';
     }
 }
 
-function validateFood() {
+function validateFood(){
     food = localStorage.getItem('cartItems');
-    if (food == null) alert("Add at least 1 item");
-    else {
+    if(food == null) alert("Add at least 1 item");
+    else{
         localStorage.setItem('lastPage', "food.html");
         window.location.href = 'order-summary.html';
     }
 }
 
-function prevPage(current_location) {
+function prevPage(current_location){
+    // this is to handle where different paths can merge (i.e. checkout pages for food or tickets), also when
+    // href attribute is not availible directly from html (i.e. using a button or something)
     console.log(window.location.href);
-    switch (current_location) {
+    // window.location.href = lastPage;
+    // lastPage = "../index.html";
+    switch (current_location){
         case "select-options.html":
             window.location.href = "../index.html";
             break;
@@ -32,13 +36,15 @@ function prevPage(current_location) {
             window.location.href = "select-movie.html";
             break;
         case "select-movie.html":
-            window.location.href = "select-options.html";
+            window.location.href = "select-options.html"
             break;
         case "order-summary.html":
+            // this is where the differentiation happens
             window.location.href = localStorage.getItem('lastPage');
             break;
     }
 }
+
 
 function toggleCart() {
     const cartPanel = document.getElementById('cartPanel');
@@ -46,18 +52,20 @@ function toggleCart() {
 }
 
 function addToCart(name, size, price) {
+    // Store cart in localStorage for persistence between pages
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
+    
     cartItems.push({
         name: name,
         size: size,
         price: price
     });
-
+    
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     updateCartBadge();
     updateCartItems();
-
+    
+    // Show a small notification
     alert(`Added ${size} ${name} to cart!`);
 }
 
@@ -65,8 +73,12 @@ function updateCartBadge() {
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const cartBadge = document.querySelector('.cart-badge');
     cartBadge.textContent = cartItems.length;
-
-    cartBadge.style.display = cartItems.length > 0 ? 'flex' : 'none';
+    
+    if (cartItems.length > 0) {
+        cartBadge.style.display = 'flex';
+    } else {
+        cartBadge.style.display = 'none';
+    }
 }
 
 function updateCartItems() {
@@ -77,7 +89,11 @@ function updateCartItems() {
     cartItemsContainer.innerHTML = '';
     let total = 0;
 
-    cartItems.forEach((item) => {
+    let tickets = JSON.parse(localStorage.getItem('tickets')) || {};
+    const ticketPrices = { adult: 12.99, child: 8.99, senior: 10.99 };
+
+    // Add food items
+    cartItems.forEach((item, index) => {
         const itemElement = document.createElement('div');
         itemElement.className = 'cart-item flex justify-between items-center p-2 border-b border-gray-600';
 
@@ -99,29 +115,55 @@ function updateCartItems() {
         itemPrice.className = 'cart-item-price font-bold text-white';
         itemPrice.textContent = `$${item.price.toFixed(2)}`;
 
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'text-red-400 hover:text-red-600 text-xs ml-2';
+        removeBtn.textContent = '✕';
+        removeBtn.title = 'Remove';
+        removeBtn.onclick = () => removeCartItem(index);
+
         itemElement.appendChild(itemDetails);
         itemElement.appendChild(itemPrice);
+        itemElement.appendChild(removeBtn);
 
         cartItemsContainer.appendChild(itemElement);
         total += item.price;
     });
 
-    const cartTotal = document.querySelector('.cart-total span:last-child');
-    if (cartTotal) {
-        cartTotal.textContent = `$${total.toFixed(2)}`;
-    }
+    // Add ticket items
+    Object.entries(ticketPrices).forEach(([type, price]) => {
+        const quantity = tickets[type] || 0;
+        if (quantity > 0) {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cart-item flex justify-between items-center p-2 border-b border-gray-600';
 
-    console.log(cartItems);
-}
+            const itemDetails = document.createElement('div');
+            itemDetails.className = 'cart-item-details flex-1 text-white';
 
-function clearCart() {
-    localStorage.removeItem('cartItems');
-    localStorage.removeItem('tickets');
-    localStorage.removeItem('movie');
+            const itemTitle = document.createElement('div');
+            itemTitle.className = 'cart-item-title font-bold';
+            itemTitle.text
+
+
+function removeCartItem(index) {
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartItems.splice(index, 1);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
     updateCartBadge();
     updateCartItems();
 }
 
+function clearCart() {
+    // Remove cart items from localStorage
+    localStorage.removeItem('cartItems');
+    localStorage.removeItem('tickets');
+    localStorage.removeItem('movie');
+    // Update the badge and cart items container
+    updateCartBadge();
+    updateCartItems();
+}
+
+
+// Ticket selection functionality
 let tickets = {
     adult: 0,
     child: 0,
@@ -149,30 +191,31 @@ function decrementTicket(type) {
 }
 
 function updateTicketTotal() {
+    // Simple calculation for demonstration
     const adultPrice = 12.99;
     const childPrice = 8.99;
     const seniorPrice = 10.99;
-
-    const total =
-        (tickets.adult * adultPrice) +
-        (tickets.child * childPrice) +
+    
+    const total = 
+        (tickets.adult * adultPrice) + 
+        (tickets.child * childPrice) + 
         (tickets.senior * seniorPrice);
-
+    
     const ticketTotal = document.querySelector('.ticket-total');
     if (ticketTotal) {
         ticketTotal.textContent = `TOTAL: $${total.toFixed(2)}`;
     }
 }
 
-function saveTickets() {
+function saveTickets(){
     console.log(tickets);
-    if (tickets['adult'] + tickets['child'] + tickets['senior'] == 0) {
-        alert("Add at least 1 ticket");
-    } else {
+    if(tickets['adult'] + tickets['child'] + tickets['senior'] == 0) alert("Add at least 1 ticket");
+    else{ 
         localStorage.setItem('tickets', JSON.stringify(tickets));
-        window.location.href = "seat-selection.html";
+        window.location.href = "seat-selection.html"
     }
 }
+
 
 // Movie data array
 const movies = [
@@ -180,10 +223,10 @@ const movies = [
         title: "ANORA",
         length: "2h 19m",
         genre: "Drama/Comedy/Romance",
-        synopsis: A young sex worker from Brooklyn gets her chance at a Cinderella story when she 
+        synopsis: `A young sex worker from Brooklyn gets her chance at a Cinderella story when she 
         meets and impulsively marries the son of an oligarch. 
         Once the news reaches Russia, her fairytale is threatened as his parents set out to get 
-        the marriage annulled.,
+        the marriage annulled.`,
         rating: "R",
         poster: "../assets/images/movies/anora.jpg",
         trailer: "../assets/videos/anora.mp4"
@@ -192,8 +235,8 @@ const movies = [
         title: "AVENGERS: ENDGAME",
         length: "3h 1m",
         genre: "Action/Sci-Fi",
-        synopsis: The surviving members of the Avengers and their allies attempt to 
-        reverse Thanos's actions and bring back humanity.,
+        synopsis: `The surviving members of the Avengers and their allies attempt to 
+        reverse Thanos's actions and bring back humanity.`,
         rating: "PG",
         poster: "../assets/images/movies/avengers-end-game.jpg",
         trailer: "../assets/videos/avengers-endgame.mp4"
@@ -202,8 +245,8 @@ const movies = [
         title: "A COMPLETE UNKNOWN",
         length: "2h 20m",
         genre: "Music, Drama",
-        synopsis: In the early 1960s, 19-year-old Bob Dylan arrives in New York with his 
-        guitar and revolutionary talent, destined to change the course of American music.,
+        synopsis: `In the early 1960s, 19-year-old Bob Dylan arrives in New York with his 
+        guitar and revolutionary talent, destined to change the course of American music.`,
         rating: "PG",
         poster: "../assets/images/movies/a-complete-unknown.jpg",
         trailer: "../assets/videos/a-complete-unknown.mp4"
@@ -212,10 +255,10 @@ const movies = [
         title: "CONCLAVE",
         length: "2h",
         genre: "Thriller/Mystery",
-        synopsis: Cardinal Lawrence has one of the world's most secretive and ancient events, 
+        synopsis: `Cardinal Lawrence has one of the world's most secretive and ancient events, 
         participating in the selection of a new pope. Surrounded by powerful religious leaders 
         in the halls of the Vatican, he soon uncovers a trail of deep secrets that could shake 
-        the very foundation of the Roman Catholic Church.,
+        the very foundation of the Roman Catholic Church.`,
         rating: "PG",
         poster: "../assets/images/movies/conclave.jpg",
         trailer: "../assets/videos/conclave.mp4"
@@ -224,10 +267,10 @@ const movies = [
         title: "DUNE: PART TWO",
         length: "2h 46m",
         genre: "Sci-Fi/Adventure",
-        synopsis: Paul Atreides unites with Chani and the Fremen while seeking revenge 
+        synopsis: `Paul Atreides unites with Chani and the Fremen while seeking revenge 
         against the conspirators who destroyed his family. 
         Facing a choice between the love of his life and the fate of the universe, 
-        he must prevent a terrible future only he can foresee.,
+        he must prevent a terrible future only he can foresee.`,
         rating: "PG",
         poster: "../assets/images/movies/dune-2.jpg",
         trailer: "../assets/videos/dune-2.mp4"
@@ -236,9 +279,9 @@ const movies = [
         title: "FLOW",
         length: "1h 25m",
         genre: "Adventure/Family/Animation",
-        synopsis: Cat is a solitary animal, but as its home is devastated by a great flood, 
+        synopsis: `Cat is a solitary animal, but as its home is devastated by a great flood, 
         he finds refuge on a boat populated by various species, and will have to team up with 
-        them despite their differences.,
+        them despite their differences.`,
         rating: "PG",
         poster: "../assets/images/movies/flow.jpg",
         trailer: "../assets/videos/flow.mp4"
@@ -247,8 +290,8 @@ const movies = [
         title: "I'M STILL HERE",
         length: "2h 15m",
         genre: "Drama/Historical drama",
-        synopsis: Eunice Paiva begins a lonely battle to learn the truth behind the disappearance of 
-        her husband, former PTB deputy Rubens Paiva, while trying to keep her family together.,
+        synopsis: `Eunice Paiva begins a lonely battle to learn the truth behind the disappearance of 
+        her husband, former PTB deputy Rubens Paiva, while trying to keep her family together.`,
         rating: "PG-18",
         poster: "../assets/images/movies/im-still-here.jpg",
         trailer: "../assets/videos/im-still-here.mp4"
@@ -257,10 +300,10 @@ const movies = [
         title: "NICKEL BOYS",
         length: "2h 20m",
         genre: "Drama/Historical drama",
-        synopsis: Elwood Curtis' college dreams are shattered when he's sentenced to Nickel Academy, 
+        synopsis: `Elwood Curtis' college dreams are shattered when he's sentenced to Nickel Academy, 
         a brutal reformatory in the Jim Crow South. Clinging to his optimistic worldview, 
         Elwood strikes up a friendship with Turner, a fellow Black teen who dispenses fundamental tips 
-        for survival.,
+        for survival.`,
         rating: "PG-16",
         poster: "../assets/images/movies/nickel-boys.jpg",
         trailer: "../assets/videos/nickel-boys.mp4"
@@ -269,11 +312,11 @@ const movies = [
         title: "NOSFERATU",
         length: "2h 12m",
         genre: "Horror/Mystery",
-        synopsis: In the 1830s, estate agent Thomas Hutter travels to Transylvania for a fateful 
+        synopsis: `In the 1830s, estate agent Thomas Hutter travels to Transylvania for a fateful 
         meeting with Count Orlok, a prospective client. In his absence, Hutter's new bride, Ellen, 
         is left under the care of their friends, Friedrich and Anna Harding. Plagued by horrific visions
         and an increasing sense of dread, Ellen soon encounters an evil force that's far beyond her 
-        control.,
+        control.`,
         rating: "PG-18",
         poster: "../assets/images/movies/nosferatu.jpg",
         trailer: "../assets/videos/nosferatu.mp4"
@@ -282,9 +325,9 @@ const movies = [
         title: "SING SING",
         length: "1h 47m",
         genre: "Drama",
-        synopsis: Divine G, imprisoned at Sing Sing for a crime he didn't commit, 
+        synopsis: `Divine G, imprisoned at Sing Sing for a crime he didn't commit, 
         finds purpose by acting in a theatre group alongside other incarcerated men in this story of resilience,
-         humanity, and the transformative power of art.,
+         humanity, and the transformative power of art.`,
         rating: "PG-13",
         poster: "../assets/images/movies/sing-sing.jpg",
         trailer: "../assets/videos/sing-sing.mp4"
@@ -293,9 +336,9 @@ const movies = [
         title: "THE SUBSTANCE",
         length: "2h 20m",
         genre: " Horror/Sci-fi",
-        synopsis: Fading actress Elisabeth Sparkle becomes distressed when her chauvinistic boss 
+        synopsis: `Fading actress Elisabeth Sparkle becomes distressed when her chauvinistic boss 
         fires her from her aerobics show. She soon injects herself with a mysterious serum that 
-        promises a younger, better version of herself, but things go horribly wrong.,
+        promises a younger, better version of herself, but things go horribly wrong.`,
         rating: "PG-18",
         poster: "../assets/images/movies/the-substance.jpg",
         trailer: "../assets/videos/the-substance.mp4"
@@ -304,27 +347,28 @@ const movies = [
         title: "WICKED",
         length: "2h 40m",
         genre: "Musical/Fantasy",
-        synopsis: Misunderstood because of her green skin, a young woman named Elphaba forges an 
+        synopsis: `Misunderstood because of her green skin, a young woman named Elphaba forges an 
         unlikely but profound friendship with Glinda, a student with an unflinching desire for 
         popularity. Following an encounter with the Wizard of Oz, their relationship soon reaches 
-        a crossroad as their lives begin to take very different paths.,
+        a crossroad as their lives begin to take very different paths.`,
         rating: "PG",
         poster: "../assets/images/movies/wicked.png",
         trailer: "../assets/videos/wicked.mp4"
     }
 ];
 
+
 function renderMovies() {
     const moviesGrid = document.querySelector(".movies-grid");
     if (!moviesGrid) return;
-
-    moviesGrid.innerHTML = "";
+    
+    moviesGrid.innerHTML = ""; // Clear existing content
     const detailPage = window.location.href.includes('movie-preview.html') ? 'preview-details.html' : 'movie-details.html';
-
+    
     movies.forEach(movie => {
         const movieCard = document.createElement("div");
         movieCard.classList.add("movie-item");
-
+        
         movieCard.innerHTML = `
             <a class="movie-item group" href="${detailPage}">
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md transition-transform duration-300 group-hover:scale-105">
@@ -338,56 +382,74 @@ function renderMovies() {
                 </div>
             </a>
         `;
-
+        
         movieCard.addEventListener('click', () => {
             localStorage.setItem('selectedMovie', JSON.stringify(movie));
             window.location.href = detailPage;
         });
-
+        
         moviesGrid.appendChild(movieCard);
     });
 }
 
-function getMovie() {
-    if (!(window.location.href).includes("movie-details.html")) return;
 
+
+function getMovie() {
+    if (!(window.location.href).includes("movie-details.html")) {
+        return
+    }
     const selectedMovie = JSON.parse(localStorage.getItem('selectedMovie'));
+
     if (selectedMovie) {
         document.getElementsByClassName('movie-title')[0].textContent = selectedMovie.title;
         document.getElementsByClassName('movie-length')[0].textContent = `LENGTH: ${selectedMovie.length}`;
         document.getElementsByClassName('movie-genre')[0].textContent = `GENRE: ${selectedMovie.genre}`;
         document.getElementsByClassName('movie-rating')[0].textContent = `RATED: ${selectedMovie.rating}`;
         document.getElementsByClassName('movie-synopsis')[0].textContent = `SYNOPSIS: ${selectedMovie.synopsis}`;
-        document.getElementsByClassName('poster-image-large')[0].src = selectedMovie.poster;
 
+        // Update the poster image
+        const posterElement = document.getElementsByClassName('poster-image-large');
+        posterElement[0].src = selectedMovie.poster;
+        ;
+
+        // Update the inline trailer video source if present
         const videoElement = document.querySelector('video');
         if (videoElement) {
             videoElement.src = selectedMovie.trailer;
         }
+
     } else {
         console.error('No movie data found in localStorage.');
     }
+    
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
     updateCartBadge();
     updateCartItems();
     renderMovies();
     getMovie();
 });
 
+// Add seat selection functionality
 function toggleSeatSelection(seat) {
     t = JSON.parse(localStorage.getItem('tickets'));
-    if (seat.classList.contains('bg-green-300') && selected < (t['adult'] + t['child'] + t['senior'])) {
-        seat.classList.remove('bg-green-300', 'border-green-500');
-        seat.classList.add('bg-pink-300', 'border-pink-500');
-        selected++;
+    if (seat.classList.contains('bg-green-300') && selected < (t['adult']+t['child']+t['senior'])) {
+      // If seat is available, mark it as selected.
+      seat.classList.remove('bg-green-300', 'border-green-500');
+      seat.classList.add('bg-pink-300', 'border-pink-500');
+      selected++;
     } else if (seat.classList.contains('bg-pink-300')) {
-        seat.classList.remove('bg-pink-300', 'border-pink-500');
-        seat.classList.add('bg-green-300', 'border-green-500');
-        selected--;
+      // If seat is selected, revert back to available.
+      seat.classList.remove('bg-pink-300', 'border-pink-500');
+      seat.classList.add('bg-green-300', 'border-green-500');
+      selected--;
     }
-
+    
+    // // Update selected seats counter (counts all elements with bg-pink-300)
     const selectedSeats = document.querySelectorAll('.bg-pink-300').length;
-    document.querySelector('.seat-counter').textContent = `${selectedSeats}/${t['adult'] + t['child'] + t['senior']}`;
-}
+    document.querySelector('.seat-counter').textContent = `${selectedSeats}/${t['adult']+t['child']+t['senior']}`;
+  }
+
+
