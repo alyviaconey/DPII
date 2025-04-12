@@ -64,6 +64,12 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
+    <button onclick="clearCart(); prevPage('select-options.html')" class="absolute top-4 left-4 btn btn-outline text-white w-32 h-14 text-center flex items-center justify-center text-base" style="position: absolute; left: 16px; top: 16px; margin: 0;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        BACK
+    </button>
     
     <!-- Top Row: Movie Info & Poster -->
     <div class="flex flex-col md:flex-row gap-6 mt-4">
@@ -101,12 +107,7 @@
     
     <!-- Bottom Button Row -->
     <div class="mt-auto w-full flex justify-between px-4">
-      <button onclick="history.back()" class="btn btn-outline text-white w-32 h-14 flex items-center justify-center text-base">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-        BACK
-      </button>
+    
       <a href="#" class="btn btn-primary text-white w-32 h-14 items-center justify-center text-base hidden">
         NEXT
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
